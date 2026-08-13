@@ -5,7 +5,7 @@ def build_top50_chapter() -> str:
     return """
 <div class="chapter" id="ch-top50">
 <h2>Chapter 28: Top 50 Most-Asked Interview Questions (Easy Answers)</h2>
-<div class="flirt-box">These 50 show up again and again. Read them twice. Smile once. Ace every time.</div>
+<div class="flirt-box">These 50 show up again and again — like someone who can't stop thinking about you. Read them twice. Smile once. Walk into that interview like you already own the room. The rapid-fire 200 are waiting in Chapter 29… don't leave me yet. 💋</div>
 
 <div class="qa-block"><div class="question">1. What is Pega in simple words?</div>
 <div class="answer"><strong>Easy answer:</strong> Pega is a platform where you build business apps using <em>rules</em> instead of writing lots of Java code. You design cases (like loan applications), workflows, screens, and integrations — and Pega runs it all.</div></div>

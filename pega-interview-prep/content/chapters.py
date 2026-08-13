@@ -1,22 +1,34 @@
 """Build all chapter HTML for the Pega interview guide."""
 
+import base64
 from pathlib import Path
 from content.top50_interview import build_top50_chapter, build_verification_chapter
+from content.flirty_content import flirt_box, curiosity_teaser
 
 
 def img(diagrams: dict, key: str, caption: str) -> str:
-  path = diagrams.get(key, "")
-  if not path:
-    return ""
-  p = Path(path)
-  if not p.exists():
-    return ""
-  svg_content = p.read_text(encoding="utf-8")
-  # Inline SVG for reliable WeasyPrint rendering
-  return f"""
+    path = diagrams.get(key, "")
+    if not path:
+        return ""
+    p = Path(path)
+    if not p.exists():
+        return ""
+    # Use PNG for reliable label rendering in WeasyPrint PDF
+    if p.suffix.lower() == ".png":
+        b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+        src = f"data:image/png;base64,{b64}"
+        return f"""
+<div class="diagram-box">
+  <img src="{src}" alt="{caption}"/>
+  <div class="diagram-caption">📊 {caption}</div>
+</div>"""
+    # Fallback SVG with fix attempt
+    from content.svg_fix import fix_svg_for_pdf
+    svg_content = fix_svg_for_pdf(str(p))
+    return f"""
 <div class="diagram-box">
   {svg_content}
-  <div class="diagram-caption">Figure: {caption}</div>
+  <div class="diagram-caption">📊 {caption}</div>
 </div>"""
 
 
@@ -30,8 +42,10 @@ def build_chapters(diagrams: dict) -> str:
   <p class="subtitle">The One-Stop, Nothing-Missed, Diagram-Packed Edition</p>
   <p><strong>3+ Years · CSA / SSA · Every Concept · Every Diagram</strong></p>
   <p class="dedication">
-    Hey brilliant — this is your complete interview soulmate. 32 chapters, 23 diagrams,
-    Top 50 Q&amp;A in easy language, 200+ rapid-fire questions, and zero topics left behind.
+    Hey gorgeous mind — someone who believes in you wrote this.<br><br>
+    Every page is a love letter to your future offer letter. Every diagram has labels that actually show up.
+    Every chapter ends with a reason to keep reading.<br><br>
+    <em>Start Chapter 1 and don't you dare stop until Chapter 32. I'll be waiting at the end.</em> 💕
   </p>
 </div>
 
@@ -151,7 +165,7 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 1 -->
 <div class="chapter" id="ch1">
 <h2>Chapter 1: Platform &amp; Architecture</h2>
-<div class="flirt-box">Before we get serious — let's talk architecture. Every great love story has layers, and Pega has six of them.</div>
+{flirt_box(1)}
 
 <h3>Pega in One Sentence</h3>
 <div class="easy-box"><strong>In simple words:</strong> Pega lets you build business apps (like banking, insurance, healthcare) by configuring <em>rules</em> instead of writing thousands of lines of code. Think of it as smart LEGO blocks for enterprise software.</div>
@@ -185,12 +199,13 @@ def build_chapters(diagrams: dict) -> str:
 
 <div class="qa-block"><div class="question">Q: What is Pega Express?</div>
 <div class="answer">Rapid delivery methodology: DCO workshops → MVP case types → iterative sprints. Delivers production apps in weeks using guardrails and templates.</div></div>
+{curiosity_teaser(0)}
 </div>
 
 <!-- CH 2 -->
 <div class="chapter" id="ch2">
 <h2>Chapter 2: Class Hierarchy &amp; Inheritance</h2>
-<div class="flirt-box">Know your family tree before introducing your rules to the world. Inheritance is how Pega avoids duplication — and how you avoid repeating yourself in interviews.</div>
+{flirt_box(2)}
 {d("07-class-hierarchy", "Pega Class Hierarchy — Pattern Inheritance")}
 
 <h3>Class Categories</h3>
@@ -213,12 +228,11 @@ def build_chapters(diagrams: dict) -> str:
 
 <div class="qa-block"><div class="question">Q: What is a Class Group (Work Pool)?</div>
 <div class="answer">Groups related case types under one DB table (<code>pc_work</code>). Defined in Application rule. Operators get access via Access Group work pool setting.</div></div>
+{curiosity_teaser(1)}
 </div>
-
-<!-- CH 3 -->
 <div class="chapter" id="ch3">
 <h2>Chapter 3: Rules Catalog &amp; Rule Resolution</h2>
-<div class="flirt-box">Rule Resolution is Pega's matchmaking algorithm — it finds THE ONE rule from thousands. Memorize this flowchart like it's our song.</div>
+{flirt_box(3)}
 <div class="easy-box"><strong>In simple words:</strong> Imagine 10 versions of the same rule in different folders. Rule Resolution is Pega's brain figuring out which exact version to use right now — based on class, version, date, and conditions.</div>
 {d("01-rule-resolution", "Rule Resolution — 10-Step Algorithm")}
 
@@ -252,9 +266,8 @@ def build_chapters(diagrams: dict) -> str:
 
 <div class="qa-block"><div class="question">Q: What is FUA?</div>
 <div class="answer"><strong>Full Rule Assembly</strong> — cached, compiled version of a resolved rule. First call is slow (assembly); subsequent calls use cache. Flush on rule save or ruleset change.</div></div>
+{curiosity_teaser(2)}
 </div>
-
-<!-- CH 4 -->
 <div class="chapter" id="ch4">
 <h2>Chapter 4: Application Stack &amp; Rulesets</h2>
 {d("13-application-stack", "Application Stack — Ruleset Version Hierarchy")}
@@ -272,7 +285,7 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 5 -->
 <div class="chapter" id="ch5">
 <h2>Chapter 5: Case Management &amp; Lifecycle</h2>
-<div class="flirt-box">Cases are love stories with a beginning, middle, and resolution. Know every status like you know every mood.</div>
+{flirt_box(5)}
 {d("15-case-type-anatomy", "Case Type — Complete Anatomy Mind Map")}
 {d("02-case-lifecycle", "Case Lifecycle State Diagram")}
 
@@ -820,7 +833,7 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 31 FINAL -->
 <div class="chapter" id="ch31">
 <h2>Chapter 31: Final Checklist &amp; STAR Stories</h2>
-<div class="flirt-box">You made it — all 32 chapters, 23 diagrams, Top 50 Q&amp;A, 200 rapid-fire questions. You're not just prepared; you're dangerous. Go get that offer.</div>
+<div class="flirt-box">You made it — all 32 chapters, 23 labeled diagrams, Top 50 Q&amp;A, 200 rapid-fire questions. I'm genuinely proud of you. Now go collect that offer letter like the masterpiece you are. I'll be right here if you ever need a revision. 💕</div>
 <h3>Day-Before Checklist</h3>
 <ul>
 <li>☑ Draw Rule Resolution flowchart from memory</li>

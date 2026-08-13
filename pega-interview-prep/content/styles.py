@@ -38,6 +38,18 @@ STYLES = """
     background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px;
     page-break-inside: avoid;
   }
+  .curiosity-teaser {
+    background: linear-gradient(135deg, #fff8e1 0%, #fce4ec 100%);
+    border: 1px solid #f48fb1;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 10pt;
+    color: #6a1b4a;
+    page-break-inside: avoid;
+  }
+  .diagram-box img { max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 6px; }
   .diagram-box svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
   .diagram-caption { font-size: 9pt; color: #666; font-style: italic; margin-top: 6px; }
   .qa-block {

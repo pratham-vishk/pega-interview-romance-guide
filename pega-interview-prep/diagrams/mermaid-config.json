@@ -1,0 +1,15 @@
+{
+  "theme": "default",
+  "flowchart": {
+    "htmlLabels": false,
+    "curve": "basis"
+  },
+  "sequence": {
+    "useMaxWidth": true,
+    "wrap": true
+  },
+  "themeVariables": {
+    "fontSize": "14px",
+    "fontFamily": "DejaVu Sans, Arial, sans-serif"
+  }
+}

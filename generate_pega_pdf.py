@@ -18,32 +18,36 @@ PDF_PATH = OUTPUT_DIR / "Pega_Interview_Romance_Guide.pdf"
 
 
 def render_mermaid_diagrams() -> dict[str, str]:
-    """Render all .mmd files to SVG via mermaid-cli."""
+    """Render all .mmd files to PNG via mermaid-cli (labels render correctly in PDF)."""
     diagrams: dict[str, str] = {}
+    config = DIAGRAMS_DIR / "mermaid-config.json"
     mmd_files = sorted(DIAGRAMS_DIR.glob("*.mmd"))
     if not mmd_files:
         print("No mermaid files found.")
         return diagrams
 
     for mmd in mmd_files:
-        svg = mmd.with_suffix(".svg")
-        key = mmd.stem  # e.g. 01-rule-resolution
+        png = mmd.with_suffix(".png")
+        key = mmd.stem
 
-        if not svg.exists() or svg.stat().st_mtime < mmd.stat().st_mtime:
+        if not png.exists() or png.stat().st_mtime < mmd.stat().st_mtime:
             cmd = [
                 "npx", "-y", "@mermaid-js/mermaid-cli@11.4.0",
                 "-i", str(mmd),
-                "-o", str(svg),
+                "-o", str(png),
                 "-b", "white",
-                "-w", "900",
+                "-w", "1000",
+                "-s", "2",
             ]
-            print(f"Rendering {mmd.name}...")
+            if config.exists():
+                cmd.extend(["-c", str(config)])
+            print(f"Rendering {mmd.name} → PNG...")
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
             if result.returncode != 0:
                 print(f"  Warning: {mmd.name}: {result.stderr[:200]}")
 
-        if svg.exists():
-            diagrams[key] = str(svg.resolve())
+        if png.exists():
+            diagrams[key] = str(png.resolve())
             print(f"  OK: {key}")
     return diagrams
 
