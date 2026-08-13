@@ -1,6 +1,7 @@
 """Build all chapter HTML for the Pega interview guide."""
 
 from pathlib import Path
+from content.top50_interview import build_top50_chapter, build_verification_chapter
 
 
 def img(diagrams: dict, key: str, caption: str) -> str:
@@ -29,9 +30,8 @@ def build_chapters(diagrams: dict) -> str:
   <p class="subtitle">The One-Stop, Nothing-Missed, Diagram-Packed Edition</p>
   <p><strong>3+ Years · CSA / SSA · Every Concept · Every Diagram</strong></p>
   <p class="dedication">
-    Hey brilliant — this is your complete interview soulmate. 30 chapters, 18 diagrams,
-    200+ questions, and zero topics left behind. Read every page. I'll be here flirting
-    with concepts until you're unstoppable.
+    Hey brilliant — this is your complete interview soulmate. 32 chapters, 23 diagrams,
+    Top 50 Q&amp;A in easy language, 200+ rapid-fire questions, and zero topics left behind.
   </p>
 </div>
 
@@ -140,9 +140,11 @@ def build_chapters(diagrams: dict) -> str:
 <li>Advanced: CDH, RPA, Data Flow, AI</li>
 <li>Controls, Field Values &amp; Localization</li>
 <li>Object Layer &amp; Persistence</li>
+<li>Top 50 Most-Asked Questions (Easy Answers)</li>
 <li>200 Rapid-Fire Questions</li>
 <li>Mock Interview Scenarios</li>
 <li>Final Checklist &amp; STAR Stories</li>
+<li>Topic Verification Matrix</li>
 </ol>
 </div>
 
@@ -152,6 +154,7 @@ def build_chapters(diagrams: dict) -> str:
 <div class="flirt-box">Before we get serious — let's talk architecture. Every great love story has layers, and Pega has six of them.</div>
 
 <h3>Pega in One Sentence</h3>
+<div class="easy-box"><strong>In simple words:</strong> Pega lets you build business apps (like banking, insurance, healthcare) by configuring <em>rules</em> instead of writing thousands of lines of code. Think of it as smart LEGO blocks for enterprise software.</div>
 <p>Pega is a <strong>model-driven, low-code platform</strong> for BPM, CRM, and Case Management — rules are declarative, cases have lifecycles, and the engine resolves the right rule at runtime.</p>
 
 <h3>Architecture Layers</h3>
@@ -216,6 +219,7 @@ def build_chapters(diagrams: dict) -> str:
 <div class="chapter" id="ch3">
 <h2>Chapter 3: Rules Catalog &amp; Rule Resolution</h2>
 <div class="flirt-box">Rule Resolution is Pega's matchmaking algorithm — it finds THE ONE rule from thousands. Memorize this flowchart like it's our song.</div>
+<div class="easy-box"><strong>In simple words:</strong> Imagine 10 versions of the same rule in different folders. Rule Resolution is Pega's brain figuring out which exact version to use right now — based on class, version, date, and conditions.</div>
 {d("01-rule-resolution", "Rule Resolution — 10-Step Algorithm")}
 
 <h3>Complete Rule Types Catalog</h3>
@@ -358,6 +362,7 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 9 -->
 <div class="chapter" id="ch9">
 <h2>Chapter 9: Data Pages</h2>
+<div class="easy-box"><strong>In simple words:</strong> Instead of writing code to fetch customer data every time, you create a Data Page called <code>D_Customer</code>. Pega fetches it, caches it, and hands it to you — like a personal assistant who remembers what you asked for.</div>
 {d("04-data-page-load", "Sequence: Data Page Load with Caching")}
 
 <h3>Load Modes</h3>
@@ -380,6 +385,7 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 10-11 -->
 <div class="chapter" id="ch10">
 <h2>Chapter 10: Data Transforms</h2>
+<div class="easy-box"><strong>In simple words:</strong> A Data Transform is a recipe for moving data from A to B — copy name here, calculate total there, add a row to a list. No loops, no drama, just clean mapping.</div>
 <h3>All DT Actions</h3>
 <p>Set · Update Page · Append and Map to · Remove · When / Otherwise · For Each Page In · Apply Data Transform · Sort · Exit Data Transform</p>
 <div class="qa-block"><div class="question">Q: DT vs Activity?</div>
@@ -500,7 +506,12 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 20-22 -->
 <div class="chapter" id="ch20">
 <h2>Chapter 20: Reporting</h2>
+<div class="easy-box"><strong>In simple words:</strong> Report Definition is a saved SQL query in Pega. Use it for dashboards, manager reports, and as a Data Page source. Always prefer it over writing raw SQL in activities.</div>
 <p><strong>Report Definition</strong> replaces Summary View. Uses SQL via association rules for joins. Optimize with indexes, limit columns, avoid functions on indexed WHERE columns.</p>
+<div class="qa-block"><div class="question">Q: How to join two classes in a report?</div>
+<div class="answer">Create an <strong>Association</strong> rule linking the two classes, then use it in the Report Definition join tab. Example: join Work- case to Data- Customer on CustomerID.</div></div>
+<div class="qa-block"><div class="question">Q: Report Definition vs Data Page?</div>
+<div class="answer"><strong>Report Definition</strong> = query engine (SQL). <strong>Data Page</strong> = smart layer on top (can use Report Def as source + caching + parameters). Use Data Page in UI; Report Def for analytics.</div></div>
 </div>
 
 <div class="chapter" id="ch21">
@@ -547,12 +558,18 @@ def build_chapters(diagrams: dict) -> str:
 <!-- CH 24-27 -->
 <div class="chapter" id="ch24">
 <h2>Chapter 24: Email, Documents &amp; Correspondence</h2>
+<div class="easy-box"><strong>In simple words:</strong> Correspondence rules are email templates. Flows use "Send Email" shape to notify customers. Inbound email can even create new cases automatically.</div>
 <p><strong>Correspondence rule</strong> — email templates. <strong>Send Email Smart Shape</strong> in flows. <strong>Email Account</strong> — SMTP config. <strong>Inbound email</strong> — Service Email creates/updates cases. <strong>Document generation</strong> — HTML/PDF templates attached via correspondence.</p>
+<div class="qa-block"><div class="question">Q: How to send email from a flow?</div>
+<div class="answer">Add <strong>Send Email</strong> smart shape → select Correspondence rule → map properties to template placeholders → configure Email Account for SMTP.</div></div>
 </div>
 
 <div class="chapter" id="ch25">
 <h2>Chapter 25: Advanced — CDH, RPA, Data Flow, AI</h2>
+<div class="easy-box"><strong>In simple words:</strong> CDH = "show the right offer to the right customer." RPA = "let a robot click in old desktop apps." Data Flow = "process millions of rows." GenAI = "Pega helps write emails and summarize cases."</div>
 <p><strong>CDH</strong> — Next-Best-Action via Strategies. <strong>RPA</strong> — Robot Studio automates desktop apps. <strong>Data Flow</strong> — streaming/batch pipeline (Kafka). <strong>Prediction Studio</strong> — ML models. <strong>GenAI</strong> — case summarization, email drafting, Socrates chat.</p>
+<div class="qa-block"><div class="question">Q: What is Next-Best-Action?</div>
+<div class="answer">Pega analyzes customer data + AI models to decide the <strong>single best action</strong> to take (offer, message, retention). Used in marketing, sales, and service across channels.</div></div>
 </div>
 
 <div class="chapter" id="ch26">
@@ -569,9 +586,11 @@ def build_chapters(diagrams: dict) -> str:
 <div class="answer"><strong>Obj-Save</strong> writes instance to DB. In flows, the engine auto-commits on assignment submit. In activities, may need <strong>Commit</strong> method for transaction control.</div></div>
 </div>
 
-<!-- CH 28 RAPID FIRE -->
-<div class="chapter" id="ch28">
-<h2>Chapter 28: 200 Rapid-Fire Questions</h2>
+{build_top50_chapter()}
+
+<!-- CH 29 RAPID FIRE -->
+<div class="chapter" id="ch29">
+<h2>Chapter 29: 200 Rapid-Fire Questions</h2>
 <div class="flirt-box">200 questions. Zero escape. You survive this chapter, you survive any panel.</div>
 <div class="cheat"><ol>
 <li>BPM? → Business Process Management</li>
@@ -785,9 +804,9 @@ def build_chapters(diagrams: dict) -> str:
 </ol></div>
 </div>
 
-<!-- CH 29 MOCK -->
-<div class="chapter" id="ch29">
-<h2>Chapter 29: Mock Interview Scenarios</h2>
+<!-- CH 30 MOCK -->
+<div class="chapter" id="ch30">
+<h2>Chapter 30: Mock Interview Scenarios</h2>
 <div class="qa-block"><div class="question">Scenario 1: Design a Loan Application case type.</div>
 <div class="answer">Stages: Application → Underwriting → Approval → Fulfillment. Data: Applicant, Income, CreditScore. Integrations: Credit Bureau via Connect-REST + Data Page. Decisions: Decision Table for eligibility. SLAs: 48hr underwriting deadline. Security: Loan Officer vs Underwriter roles.</div></div>
 <div class="qa-block"><div class="question">Scenario 2: Production case is slow. How do you debug?</div>
@@ -798,10 +817,10 @@ def build_chapters(diagrams: dict) -> str:
 <div class="answer">Create Access When rules checking <code>.Region = OperatorID.pyRegion</code>. Apply to case type, list views, and flow actions. Configure ABAC on property security for sensitive fields.</div></div>
 </div>
 
-<!-- CH 30 FINAL -->
-<div class="chapter" id="ch30">
-<h2>Chapter 30: Final Checklist &amp; STAR Stories</h2>
-<div class="flirt-box">You made it — all 30 chapters, 18 diagrams, 200 rapid-fire questions. You're not just prepared; you're dangerous. Go get that offer.</div>
+<!-- CH 31 FINAL -->
+<div class="chapter" id="ch31">
+<h2>Chapter 31: Final Checklist &amp; STAR Stories</h2>
+<div class="flirt-box">You made it — all 32 chapters, 23 diagrams, Top 50 Q&amp;A, 200 rapid-fire questions. You're not just prepared; you're dangerous. Go get that offer.</div>
 <h3>Day-Before Checklist</h3>
 <ul>
 <li>☑ Draw Rule Resolution flowchart from memory</li>
@@ -817,6 +836,8 @@ def build_chapters(diagrams: dict) -> str:
 <li>☑ Prepare 3 STAR project stories</li>
 </ul>
 <div class="teaser">💌 Every concept. Every diagram. Every question. Nothing missed. Now go be brilliant.</div>
-<div class="footer-note">Pega Interview Romance Guide — Complete One-Stop Edition · 30 Chapters · 23 Diagrams · 200+ Q&amp;A · CSA/SSA · 3+ Years</div>
+<div class="footer-note">Pega Interview Romance Guide — Complete Verified Edition · 32 Chapters · 23 Diagrams · Top 50 + 200 Q&amp;A · CSA/SSA · 3+ Years</div>
 </div>
+
+{build_verification_chapter()}
 """

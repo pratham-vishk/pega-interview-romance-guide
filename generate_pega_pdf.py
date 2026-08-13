@@ -83,7 +83,14 @@ def main():
     generate_pdf(HTML_PATH, PDF_PATH)
     size_kb = PDF_PATH.stat().st_size / 1024
     print(f"  PDF: {PDF_PATH} ({size_kb:.1f} KB)\n")
-    print("Done! Your one-stop Pega interview guide is ready.")
+
+    # Verify topic coverage
+    verify_script = BASE / "verify_coverage.py"
+    if verify_script.exists():
+        print("Step 4: Verifying topic coverage...")
+        subprocess.run([sys.executable, str(verify_script)], check=False)
+
+    print("\nDone! Your one-stop Pega interview guide is ready.")
 
 
 if __name__ == "__main__":

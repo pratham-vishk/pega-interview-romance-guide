@@ -63,5 +63,14 @@ STYLES = """
   .teaser { text-align: center; font-style: italic; color: #c2185b; margin: 20px 0; padding: 10px; border: 1px dashed #f48fb1; border-radius: 8px; }
   .master-checklist { font-size: 9pt; columns: 2; column-gap: 18px; }
   .master-checklist li { break-inside: avoid; }
-  .footer-note { text-align: center; font-size: 8.5pt; color: #888; margin-top: 24px; padding-top: 10px; border-top: 1px solid #eee; }
+  .easy-box {
+    background: #e8eaf6;
+    border-left: 4px solid #5c6bc0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    color: #283593;
+    page-break-inside: avoid;
+  }
+  .easy-box strong { color: #1a237e; } text-align: center; font-size: 8.5pt; color: #888; margin-top: 24px; padding-top: 10px; border-top: 1px solid #eee; }
 """
