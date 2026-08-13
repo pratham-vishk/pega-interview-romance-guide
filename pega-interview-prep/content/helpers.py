@@ -1,28 +1,12 @@
 """HTML building blocks for rich Pega interview chapters."""
 
-from content.romantic_expander import expand_subtopic
+from content.romantic_expander import compact_subtopic_text
 
 def simple(text: str) -> str:
     return f'<div class="easy-box"><strong>💡 In Simple Words:</strong> {text}</div>'
 
 def flirt_ex(text: str) -> str:
     return f'<div class="flirty-example"><strong>💋 Flirty Real Example:</strong> {text}</div>'
-
-def subtopic(
-    title: str,
-    explain: str,
-    details: str = "",
-    interview_tip: str = "",
-    chapter_num: int = 0,
-) -> str:
-    rich = expand_subtopic(chapter_num, title, explain, details, interview_tip)
-    return f"""<div class="subtopic-block">
-<h4>▸ {title}</h4>
-<p><strong>What it is:</strong> {rich["what"]}</p>
-<p>{rich["how"]}</p>
-{rich["romantic"]}
-{rich["pitfall"]}
-{rich["tip"]}</div>"""
 
 def cheat(title: str, rows: list[tuple[str, str]]) -> str:
     trs = "".join(f"<tr><td><strong>{k}</strong></td><td>{v}</td></tr>" for k, v in rows)
@@ -42,14 +26,25 @@ def chapter_wrap(num: int, title: str, body: str, teaser_idx: int) -> str:
     return f'<div class="chapter" id="ch{num}"><h2>Chapter {num}: {title}</h2>{flirt_box(num)}{body}{curiosity_teaser(teaser_idx)}</div>'
 
 def render_subtopics(items: list[tuple], chapter_num: int = 0) -> str:
-    """Each item: (title, explain, details, interview_tip) - tip optional"""
+    """Readable blocks — every subtopic covered, ~150-page sweet spot."""
     out = (
-        "<h3>📖 Every Subtopic — Complete Explanation (Nothing Skipped)</h3>"
-        "<p><em>Each topic below: what it is · how it works · romantic analogy · pitfalls · interview tip.</em></p>"
+        "<h3>📖 All Subtopics — Complete Coverage</h3>"
+        "<p><em>Every topic below: definition, how it works, and interview tip.</em></p>"
     )
     for item in items:
         title, explain = item[0], item[1]
         details = item[2] if len(item) > 2 else ""
         tip = item[3] if len(item) > 3 else ""
-        out += subtopic(title, explain, details, tip, chapter_num)
+        answer, practice, romantic, mistake, tip_cell = compact_subtopic_text(
+            title, explain, details, tip, chapter_num
+        )
+        out += (
+            f'<div class="subtopic-compact">'
+            f'<strong>{title}</strong> — {answer}'
+            f'<br>{practice}'
+            f'<br>{romantic}'
+            f'<br>{mistake}'
+            f'<br><span class="subtopic-tip">🎯 Interview: {tip_cell}</span>'
+            f"</div>"
+        )
     return out

@@ -3,6 +3,7 @@
 import base64
 from pathlib import Path
 from content.top50_interview import build_top50_chapter, build_verification_chapter
+from content.glossary import build_glossary_appendix
 from content.full_chapters import build_all_full_chapters
 
 
@@ -36,11 +37,11 @@ def build_cover_and_toc() -> str:
   <div style="font-size:36pt">💕</div>
   <h1>Pega Interview<br>Romance Guide</h1>
   <p class="subtitle">Ultimate One-Stop Bible — Every Topic, Every Subtopic, Nothing Missed</p>
-  <p><strong>27 Chapters · 473 Subtopics · 28 Diagrams · 250+ Q&amp;A · Romantic Full Explanations</strong></p>
+  <p><strong>27 Chapters · 473 Subtopics · ~150 Pages · Romantic &amp; Interview-Ready</strong></p>
   <p class="dedication">
-    Hey gorgeous — this is the <em>complete</em> guide, not a teaser.<br><br>
-    Every chapter explains <strong>every subtopic</strong> in simple romantic words: what it is, how it works, interview tip, flirty example, diagram, cheat sheet, and Q&amp;A.<br><br>
-    Diagrams fit the page. Labels show. Topics don't get skipped. Start Chapter 1 — finish Chapter 27 — collect your offer. 💋
+    Hey gorgeous — complete but <strong>finishable</strong>.<br><br>
+    Every subtopic in quick tables, diagrams inline, top Q&amp;A, cheat sheets — romantic tone without 300-page marathon.<br><br>
+    One sitting. One offer letter. Start Chapter 1. 💋
   </p>
 </div>
 
@@ -76,8 +77,8 @@ def build_cover_and_toc() -> str:
 <li>Controls, Field Values &amp; Localization</li>
 <li>Object Layer &amp; Persistence</li>
 <li>🏆 Master Interview Cheat Sheet</li>
-<li>Top 50 Most-Asked Questions (Easy Answers)</li>
-<li>200 Rapid-Fire Questions</li>
+<li>Top 50 Most-Asked Questions</li>
+<li>150 Rapid-Fire Questions</li>
 <li>Mock Interview Scenarios</li>
 <li>Final Checklist &amp; STAR Stories</li>
 <li>Topic Verification Matrix</li>
@@ -88,8 +89,8 @@ def build_cover_and_toc() -> str:
 def build_rapid_fire() -> str:
     return """
 <div class="chapter" id="ch29">
-<h2>Chapter 29: 200 Rapid-Fire Questions</h2>
-<div class="flirt-box">200 questions. Zero mercy. You survive this chapter, you survive any interview panel in the world. Go get em, tiger. 🐯</div>
+<h2>Chapter 29: 150 Rapid-Fire Questions</h2>
+<div class="flirt-box">150 quick hits — one evening, full confidence. ☕💕</div>
 <div class="cheat"><ol>
 <li>BPM? → Business Process Management</li>
 <li>Case class prefix? → Work-</li>
@@ -273,48 +274,6 @@ def build_rapid_fire() -> str:
 <li>Connect-MQ? → Message queue out</li>
 <li>Data Set? → Data Flow source/sink</li>
 <li>Stream? → Real-time processing</li>
-<li>Adaptive model? → Self-learning ML</li>
-<li>Text analyzer? → NLP feature</li>
-<li>Champion-challenger? → A/B test strategy</li>
-<li>Simulate? → Test CDH strategy</li>
-<li>Arbitration? → Resolve strategy conflicts</li>
-<li>Prioritization? → Rank propositions</li>
-<li>Proposition filter? → Filter CDH offers</li>
-<li>pxAPI create case? → REST case creation</li>
-<li>pxUpdateCase? → REST case update</li>
-<li>Dynamic system setting? → Config via DSS</li>
-<li>Activity allow list? → Security restriction</li>
-<li>Restricted activity? → Cannot call from UI</li>
-<li>Call activity? → Invoke sub-activity</li>
-<li>Branch activity? → Jump to label</li>
-<li>Commit method? → Transaction commit</li>
-<li>Rollback? → Undo transaction</li>
-<li>Obj-Filter? → Filter page list</li>
-<li>Obj-Sort? → Sort page list</li>
-<li>Page-New? → Create clipboard page</li>
-<li>Page-Remove? → Delete clipboard page</li>
-<li>Queue-For-Agent? → Defer to agent</li>
-<li>Connect-REST? → Outbound REST</li>
-<li>Service-REST? → Inbound REST</li>
-<li>Authentication Service? → Custom auth</li>
-<li>Email Account? → SMTP config</li>
-<li>Send Email shape? → Flow email step</li>
-<li>PDF generation? → HTML to PDF</li>
-<li>AttachAsPDF? → Attach doc to case</li>
-<li>Guardrails score? → App health %</li>
-<li>DCR? → Direct Capture Requirements</li>
-<li>DCO? → Requirements workshop</li>
-<li>Persona? → User role in App Studio</li>
-<li>Stage SLA? → Per-stage time limit</li>
-<li>Assignment SLA? → Per-task time limit</li>
-<li>pxUrgencyWork? → Case urgency</li>
-<li>pxCreateOpName? → Creator name</li>
-<li>pxLastUpdateBy? → Last updater name</li>
-<li>pxSaveDateTime? → Last save time</li>
-<li>pxRefObjectKey? → Reference key</li>
-<li>pxLinkedRefTo? → Linked page ref</li>
-<li>pxObjClass? → Instance class</li>
-<li>pxInsName? → Instance name</li>
 </ol></div>
 </div>"""
 
@@ -328,40 +287,33 @@ def build_mock_and_final() -> str:
 <div class="answer"><strong>Answer:</strong> Stages: Application → Document Collection → Underwriting → Approval → Disbursement. Data Model: Applicant (Page), Income, LoanAmount, CreditScore, Documents (Page List). Integrations: Credit Bureau via Connect-REST + Data Page with error handling. Decisions: Decision Table for eligibility (amount, score, employment). SLAs: 48hr underwriting deadline with escalation to manager. Security: Loan Officer creates, Underwriter reviews, Manager approves — separate roles and Access When by region. UI: Constellation views for each stage. Testing: Unit tests on DTs and Decision Table, scenario test for full lifecycle.</div></div>
 <div class="qa-block"><div class="question">Scenario 2: Production case is very slow. Walk me through debugging.</div>
 <div class="answer"><strong>Answer:</strong> 1) Run PAL before and after the slow action — check pxRDBIO (DB ops) and clipboard size. 2) If DB ops &gt; 50, use Tracer filtered by RDB methods. 3) Run DB Trace to see actual SQL. 4) Look for looping Activity calling Obj-Open per row (N+1). 5) Check Data Page load modes — should cache reference data. 6) Review guardrails compliance score. 7) Fix: replace loop with batch Data Page or Report Def with join.</div></div>
-<div class="qa-block"><div class="question">Scenario 3: How would you migrate from traditional UI to Constellation?</div>
-<div class="answer"><strong>Answer:</strong> 1) Enable Constellation on case type in Dev Studio. 2) Convert Sections to Views using conversion tool. 3) Replace Harnesses with Full Page forms. 4) Apply Cosmos Theme. 5) Test all flow actions work with DX API. 6) Run scenario tests for each user persona. 7) Deploy via branch → merge → RAP → pipeline. 8) Rollback plan: feature toggle to switch back.</div></div>
-<div class="qa-block"><div class="question">Scenario 4: Implement region-based case access.</div>
-<div class="answer"><strong>Answer:</strong> Create Access When rule: <code>.Region == OperatorID.pyRegion</code>. Apply to case type list view, individual case open, and sensitive flow actions. Add property security on SSN field — read-only unless Privilege 'ViewSSN'. Test with operators from different regions.</div></div>
-<div class="qa-block"><div class="question">Scenario 5: Explain your typical day as a Pega developer.</div>
-<div class="answer"><strong>Answer:</strong> Morning: check assigned stories, review guardrails on my branch. Dev: design/update case types, build Data Pages and DTs, configure integrations, write unit tests. Afternoon: code review teammates' branches, fix bugs using Tracer/PAL, update documentation. Deploy: merge branch, create RAP, push through Deployment Manager pipeline to QA.</div></div>
+<div class="qa-block"><div class="question">Scenario 3: Migrate traditional UI to Constellation.</div>
+<div class="answer"><strong>Answer:</strong> Enable Constellation on case type → convert Sections to Views → Full Page forms → Cosmos Theme → test flow actions via DX API → scenario tests per persona → branch → RAP → pipeline. Rollback via feature toggle.</div></div>
+<div class="qa-block"><div class="question">Scenario 4: Region-based case access.</div>
+<div class="answer"><strong>Answer:</strong> Access When: <code>.Region == OperatorID.pyRegion</code> on list/open/actions. Property security on SSN — read-only unless Privilege 'ViewSSN'. Test cross-region operators.</div></div>
 </div>
 
 <div class="chapter" id="ch31">
-<h2>Chapter 31: Final Checklist &amp; STAR Story Template</h2>
-<div class="flirt-box">You read every chapter. Every diagram. Every cheat sheet. You're not going to an interview — you're going to collect what's yours. 💕</div>
-<h3>☑ Night-Before Checklist</h3>
-<ul>
-<li>☑ Draw Rule Resolution 10-step flowchart from memory</li>
-<li>☑ Draw Case Lifecycle state diagram</li>
-<li>☑ Explain Data Page load sequence out loud</li>
-<li>☑ Walk through REST integration (Connect-REST → Data Page → Case)</li>
-<li>☑ Recite: Operator → Access Group → Role → Privilege → Access When</li>
-<li>☑ Name all 8 flow shapes</li>
-<li>☑ Compare DT vs Activity vs Data Page — when to use each</li>
-<li>☑ Explain Constellation vs Traditional UI</li>
-<li>☑ Describe DevOps pipeline: Branch → Merge → RAP → QA → Prod</li>
-<li>☑ List 10 guardrails from memory</li>
-<li>☑ Prepare 3 STAR stories from your real projects</li>
-<li>☑ Review Master Cheat Sheet (Chapter 28)</li>
-<li>☑ Skim Top 50 Q&amp;A (Chapter 29)</li>
+<h2>Chapter 31: Final Checklist</h2>
+<div class="flirt-box">Night-before essentials — 15 minutes, full confidence. 💕</div>
+<ul class="master-checklist">
+<li>☑ Rule Resolution 10 steps from memory</li>
+<li>☑ Case lifecycle + 8 flow shapes</li>
+<li>☑ Data Page vs DT vs Activity</li>
+<li>☑ Security chain: Operator → Access Group → Role → Privilege</li>
+<li>☑ Connect vs Service REST</li>
+<li>☑ Constellation vs Traditional UI</li>
+<li>☑ DevOps: Branch → RAP → Pipeline</li>
+<li>☑ 3 STAR stories ready</li>
+<li>☑ Master Cheat Sheet skim</li>
 </ul>
-<h3>STAR Template</h3>
-<div class="qa-block"><div class="question">S — Situation</div><div class="answer">"In my [project] at [company], we had [business problem]…"</div></div>
-<div class="qa-block"><div class="question">T — Task</div><div class="answer">"I was responsible for [your role] and needed to [specific goal]…"</div></div>
-<div class="qa-block"><div class="question">A — Action</div><div class="answer">"I designed [Case Type/Data Page/Integration] using [specific Pega rules]. I followed guardrails by [specific actions]…"</div></div>
-<div class="qa-block"><div class="question">R — Result</div><div class="answer">"We reduced processing time by X%, achieved Y% guardrails compliance, deployed to production with zero defects…"</div></div>
-<div class="teaser">💌 You are ready. Walk in like you already have the offer. Because honestly? You should.</div>
-<div class="footer-note">Pega Interview Romance Guide — Complete Interview Bible · 28 Diagrams · 27 Full Chapters · Master Cheat Sheet · Top 50 + 200 Q&amp;A · CSA/SSA · 3+ Years</div>
+<h3>STAR Story Template</h3>
+<div class="qa-block"><div class="question">S — Situation</div><div class="answer">"In my [project], we had [business problem]…"</div></div>
+<div class="qa-block"><div class="question">T — Task</div><div class="answer">"I owned [area] and needed to [goal]…"</div></div>
+<div class="qa-block"><div class="question">A — Action</div><div class="answer">"I built [Case Type / Data Page / Integration] using [specific rules]…"</div></div>
+<div class="qa-block"><div class="question">R — Result</div><div class="answer">"Reduced time by X%, passed guardrails, zero prod defects…"</div></div>
+<div class="teaser">💌 ~150 pages done. Walk in like you already have the offer.</div>
+<div class="footer-note">Pega Interview Romance Guide · 27 Chapters · 473 Subtopics · ~150 Pages · CSA/SSA</div>
 </div>"""
 
 
@@ -373,5 +325,6 @@ def build_chapters(diagrams: dict) -> str:
         + build_top50_chapter()
         + build_rapid_fire()
         + build_mock_and_final()
+        + build_glossary_appendix()
         + build_verification_chapter()
     )

@@ -1,12 +1,12 @@
 """Shared CSS for the Pega interview guide PDF."""
 
 STYLES = """
-  @page { margin: 14mm 12mm; size: A4; }
+  @page { margin: 16mm 14mm; size: A4; }
   * { box-sizing: border-box; }
   body {
     font-family: 'DejaVu Sans', 'Georgia', serif;
     color: #2d1b2e;
-    line-height: 1.55;
+    line-height: 1.5;
     font-size: 9.5pt;
     margin: 0; padding: 0;
   }
@@ -35,20 +35,18 @@ STYLES = """
   }
   .diagram-box {
     text-align: center;
-    margin: 14px 0;
-    padding: 10px;
+    margin: 8px 0;
+    padding: 6px;
     background: #fafafa;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 6px;
     page-break-inside: avoid;
-    page-break-before: always;
-    break-inside: avoid;
   }
   .diagram-box img {
     display: block;
     margin: 0 auto;
     max-width: 100%;
-    max-height: 220mm;
+    max-height: 130mm;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -81,23 +79,23 @@ STYLES = """
   li { margin: 2px 0; }
   .toc { page-break-after: always; }
   .chapter { page-break-before: always; }
-  .subtopic-block {
-    margin: 12px 0 16px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 1px dotted #f8bbd0;
+  .subtopic-compact {
+    font-size: 8.8pt;
+    line-height: 1.55;
+    margin: 0 0 10px 0;
+    padding: 7px 10px 9px 10px;
+    border-left: 2px solid #f8bbd0;
+    background: #fffbfc;
   }
-  .subtopic-block p { margin: 5px 0; }
-  .flirt-sub {
-    background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 100%);
-    border-left: 3px solid #e91e63;
-    padding: 8px 12px;
-    margin: 8px 0;
-    border-radius: 0 6px 6px 0;
-    font-style: italic;
+  .subtopic-tip {
+    font-size: 8.2pt;
     color: #6a1b4a;
+    font-style: italic;
   }
   code, .mono { font-family: 'DejaVu Sans Mono', monospace; background: #f5f5f5; padding: 1px 4px; border-radius: 3px; font-size: 8.5pt; }
-  .cheat { font-size: 8pt; columns: 2; column-gap: 16px; }
+  .cheat { font-size: 7.5pt; columns: 3; column-gap: 12px; line-height: 1.3; }
+  .top50-grid { columns: 2; column-gap: 14px; font-size: 8.5pt; }
+  .top50-grid .qa-block { break-inside: avoid; margin: 5px 0; padding: 5px 7px; }
   .teaser { text-align: center; font-style: italic; color: #c2185b; margin: 16px 0; padding: 10px; border: 1px dashed #f48fb1; border-radius: 8px; }
   .master-checklist { font-size: 8.5pt; columns: 2; column-gap: 16px; }
   .master-checklist li { break-inside: avoid; }

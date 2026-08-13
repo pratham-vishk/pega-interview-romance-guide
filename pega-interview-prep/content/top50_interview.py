@@ -5,8 +5,7 @@ def build_top50_chapter() -> str:
     return """
 <div class="chapter" id="ch-top50">
 <h2>Chapter 28: Top 50 Most-Asked Interview Questions (Easy Answers)</h2>
-<div class="flirt-box">These 50 show up again and again — like someone who can't stop thinking about you. Read them twice. Smile once. Walk into that interview like you already own the room. The rapid-fire 200 are waiting in Chapter 29… don't leave me yet. 💋</div>
-
+<div class="flirt-box">Top 50 classics — read once, nail the interview. Quick answers, romantic clarity. 💋</div>
 <div class="qa-block"><div class="question">1. What is Pega in simple words?</div>
 <div class="answer"><strong>Easy answer:</strong> Pega is a platform where you build business apps using <em>rules</em> instead of writing lots of Java code. You design cases (like loan applications), workflows, screens, and integrations — and Pega runs it all.</div></div>
 
@@ -196,11 +195,11 @@ def build_verification_chapter() -> str:
 <tr><td>Controls &amp; Localization</td><td>Ch 26</td><td>✅ Fig 22</td><td>✅ Rapid Fire</td></tr>
 <tr><td>Object Persistence</td><td>Ch 27</td><td>✅ Fig 20</td><td>✅ Top 50 #46</td></tr>
 <tr><td>Top 50 Interview Q&amp;A</td><td>Ch 28</td><td>—</td><td>✅ Full answers</td></tr>
-<tr><td>200 Rapid-Fire</td><td>Ch 29</td><td>—</td><td>✅</td></tr>
+<tr><td>150 Rapid-Fire</td><td>Ch 29</td><td>—</td><td>✅</td></tr>
 <tr><td>Mock Scenarios</td><td>Ch 30</td><td>—</td><td>✅</td></tr>
 <tr><td>Final Checklist</td><td>Ch 31</td><td>—</td><td>✅</td></tr>
 </table>
 
-<div class="tip"><strong>Verified:</strong> 75+ topics · 23 diagrams · 50 detailed Q&amp;A · 200 rapid-fire · 4 mock scenarios · 30+ chapters. You are interview-ready.</div>
+<div class="tip"><strong>Verified:</strong> 27 chapters · 473 subtopics · ~150 pages · Top 50 + 100 rapid-fire · 3 mock scenarios.</div>
 </div>
 """

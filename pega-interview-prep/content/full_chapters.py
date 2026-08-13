@@ -2,6 +2,7 @@
 
 from content.all_topics import CHAPTERS
 from content.helpers import simple, flirt_ex, cheat, qa, render_subtopics, chapter_wrap
+from content.study_guides import study_recap_box
 
 
 def build_all_full_chapters(d) -> str:
@@ -17,12 +18,17 @@ def render_chapter(num: int, ch: dict, d) -> str:
     body_parts = [
         simple(ch["intro_simple"]),
         flirt_ex(ch["flirty"]),
+        study_recap_box(num),
     ]
     for key, caption in ch.get("diagrams", []):
         body_parts.append(d(key, caption))
     body_parts.append(render_subtopics(ch["subtopics"], chapter_num=num))
-    body_parts.append(cheat(ch["title"].split("—")[0].strip(), ch["cheat"]))
-    for q, a in ch["qa"]:
+    if len(ch["qa"]) > 7:
+        body_parts.append("<h3>🔥 Extra Practice Q&amp;A</h3>")
+        for q, a in ch["qa"][7:9]:
+            body_parts.append(qa(q, a))
+    body_parts.append(cheat(ch["title"].split("—")[0].strip(), ch["cheat"][:10]))
+    for q, a in ch["qa"][:7]:
         body_parts.append(qa(q, a))
     teaser_idx = (num - 1) % 5
     return chapter_wrap(num, ch["title"], "\n".join(body_parts), teaser_idx)
