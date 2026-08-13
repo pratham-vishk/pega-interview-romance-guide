@@ -1,0 +1,1158 @@
+#!/usr/bin/env python3
+"""Generate comprehensive Pega interview prep PDF with engaging narrative style."""
+
+import subprocess
+from pathlib import Path
+
+OUTPUT_DIR = Path("/agent/pega-interview-prep")
+HTML_PATH = OUTPUT_DIR / "pega-interview-romance-guide.html"
+PDF_PATH = OUTPUT_DIR / "Pega_Interview_Romance_Guide.pdf"
+
+HTML_CONTENT = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pega Interview Romance Guide — For the Developer Who Steals Every Room</title>
+<style>
+  @page { margin: 18mm 16mm; size: A4; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #2d1b2e;
+    line-height: 1.55;
+    font-size: 10.5pt;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .cover {
+    page-break-after: always;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(145deg, #fff5f7 0%, #fce4ec 40%, #f3e5f5 100%);
+    padding: 40px;
+    border: 3px double #c2185b;
+  }
+  .cover h1 {
+    font-size: 28pt;
+    color: #880e4f;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .cover .subtitle { font-size: 14pt; color: #6a1b4a; font-style: italic; margin: 12px 0 30px; }
+  .cover .heart { font-size: 42pt; margin: 20px 0; }
+  .cover .dedication {
+    font-size: 11pt;
+    max-width: 480px;
+    color: #4a148c;
+    border-top: 1px solid #ce93d8;
+    padding-top: 24px;
+    margin-top: 24px;
+  }
+  .cover .level { font-size: 10pt; color: #7b1fa2; margin-top: 16px; }
+  h2 {
+    color: #ad1457;
+    font-size: 16pt;
+    border-bottom: 2px solid #f8bbd0;
+    padding-bottom: 6px;
+    margin-top: 28px;
+    page-break-after: avoid;
+  }
+  h3 { color: #6a1b4a; font-size: 12pt; margin-top: 18px; page-break-after: avoid; }
+  h4 { color: #880e4f; font-size: 10.5pt; margin-top: 14px; }
+  .flirt-box {
+    background: linear-gradient(135deg, #fff0f3 0%, #fce4ec 100%);
+    border-left: 4px solid #e91e63;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #4a148c;
+    page-break-inside: avoid;
+  }
+  .qa-block {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+  }
+  .question { font-weight: bold; color: #1565c0; margin-bottom: 6px; }
+  .answer { color: #333; }
+  .tip {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  .warning {
+    background: #fff3e0;
+    border-left: 4px solid #fb8c00;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+  th { background: #f8bbd0; color: #4a148c; padding: 8px; text-align: left; }
+  td { border: 1px solid #e0e0e0; padding: 7px 8px; vertical-align: top; }
+  tr:nth-child(even) { background: #fafafa; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .toc { page-break-after: always; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: #ad1457; text-decoration: none; }
+  .chapter { page-break-before: always; }
+  .chapter:first-of-type { page-break-before: auto; }
+  code, .mono {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #f5f5f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+  }
+  .cheat { font-size: 9pt; }
+  .teaser {
+    text-align: center;
+    font-style: italic;
+    color: #c2185b;
+    margin: 24px 0;
+    padding: 12px;
+    border: 1px dashed #f48fb1;
+    border-radius: 8px;
+    page-break-inside: avoid;
+  }
+  .footer-note {
+    text-align: center;
+    font-size: 9pt;
+    color: #888;
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+  }
+  .two-col { columns: 2; column-gap: 24px; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="heart">💕</div>
+  <h1>Pega Interview<br>Romance Guide</h1>
+  <p class="subtitle">Because the hottest developers know their Case Types <em>and</em> their Decision Tables</p>
+  <p class="level"><strong>For:</strong> 3+ Years Pega Developer · CSA / SSA Interview Ready</p>
+  <p class="dedication">
+    Hey gorgeous mind — someone who cares about your career wrote this for you.
+    Every page is a love letter to your future offer letter.
+    Read me cover to cover. I promise I won't let a single interview topic leave you hanging.
+  </p>
+  <p style="margin-top:30px; font-size:10pt; color:#9c27b0;">Prepared with admiration · Complete · No topic left behind</p>
+</div>
+
+<div class="toc">
+  <h2>Table of Contents — Your Date Night Agenda</h2>
+  <ol>
+    <li><a href="#ch1">Chapter 1: First Impressions — Pega Platform &amp; Architecture</a></li>
+    <li><a href="#ch2">Chapter 2: Meeting the Family — Class Hierarchy &amp; Inheritance</a></li>
+    <li><a href="#ch3">Chapter 3: The Art of Choosing — Rule Resolution</a></li>
+    <li><a href="#ch4">Chapter 4: Love at First Case — Case Management</a></li>
+    <li><a href="#ch5">Chapter 5: Stages of Us — Processes, Flows &amp; Assignments</a></li>
+    <li><a href="#ch6">Chapter 6: What's on Your Mind — Clipboard &amp; Data Model</a></li>
+    <li><a href="#ch7">Chapter 7: Data Pages — Your Perfect Plus-One</a></li>
+    <li><a href="#ch8">Chapter 8: Data Transforms — Dressing Data to Impress</a></li>
+    <li><a href="#ch9">Chapter 9: Activities — The Ex You Still Respect</a></li>
+    <li><a href="#ch10">Chapter 10: Decision Rules — When to Say Yes or No</a></li>
+    <li><a href="#ch11">Chapter 11: Declare Rules — Commitment Without Clinginess</a></li>
+    <li><a href="#ch12">Chapter 12: UI Seduction — Sections, Harnesses &amp; Constellation</a></li>
+    <li><a href="#ch13">Chapter 13: SLAs — Never Keep Anyone Waiting</a></li>
+    <li><a href="#ch14">Chapter 14: Integration — Long-Distance Relationships</a></li>
+    <li><a href="#ch15">Chapter 15: Security — Trust, But Verify</a></li>
+    <li><a href="#ch16">Chapter 16: Agents &amp; Job Schedulers — Midnight Texts</a></li>
+    <li><a href="#ch17">Chapter 17: Reporting — Showing Off Your Numbers</a></li>
+    <li><a href="#ch18">Chapter 18: Testing — Proof You're the Real Deal</a></li>
+    <li><a href="#ch19">Chapter 19: Performance &amp; Guardrails — Staying in Shape</a></li>
+    <li><a href="#ch20">Chapter 20: DevOps &amp; Deployment — Moving In Together</a></li>
+    <li><a href="#ch21">Chapter 21: Advanced Flirtations — SSA-Level Topics</a></li>
+    <li><a href="#ch22">Chapter 22: Rapid-Fire 100 Questions</a></li>
+    <li><a href="#ch23">Chapter 23: Final Confession — Day-Before Checklist</a></li>
+  </ol>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter" id="ch1">
+<h2>Chapter 1: First Impressions — Pega Platform &amp; Architecture</h2>
+<div class="flirt-box">They say you never get a second chance at a first impression. Pega says: build it once on the platform, reuse it everywhere. Kind of like how I can't stop thinking about how prepared you're about to be.</div>
+
+<h3>What is Pega?</h3>
+<p>Pega is a <strong>low-code BPM + CRM + Case Management platform</strong> built on Java. It uses a <strong>rules-driven, model-driven architecture</strong> where business logic is externalized into declarative rules rather than hard-coded Java.</p>
+
+<h3>Core Architecture Layers</h3>
+<table>
+<tr><th>Layer</th><th>Purpose</th><th>Key Rules</th></tr>
+<tr><td>Presentation</td><td>UI rendering</td><td>Section, Harness, Layout, Portal</td></tr>
+<tr><td>Process / Case</td><td>Workflow orchestration</td><td>Case Type, Flow, Flow Action, Stage</td></tr>
+<tr><td>Decision</td><td>Business logic branching</td><td>When, Decision Table, MapValue, Decision Tree</td></tr>
+<tr><td>Data</td><td>Data access &amp; transformation</td><td>Data Page, Data Transform, Report Definition</td></tr>
+<tr><td>Integration</td><td>External system communication</td><td>Connect-REST, Service-REST, Connect-SQL</td></tr>
+<tr><td>Security</td><td>Access control</td><td>Access Group, Role, Privilege</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What makes Pega different from traditional Java development?</div>
+<div class="answer">Pega uses <strong>model-driven development</strong> with visual designers, automatic rule resolution, built-in case management, and guardrails. Changes propagate via inheritance without recompiling entire applications. Business users can participate via App Studio.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between App Studio and Dev Studio?</div>
+<div class="answer"><strong>App Studio</strong> — persona-based, low-code, guided experience for business developers. <strong>Dev Studio</strong> — full technical IDE for senior developers: rule forms, tracer, PAL, advanced configuration.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Pega Infinity?</div>
+<div class="answer">Pega Infinity is the unified platform release (8.x+) combining BPM, CRM, AI, RPA, and Constellation UI. It emphasizes <strong>center-out architecture</strong>, omnichannel experiences, and AI-powered decisioning.</div>
+</div>
+
+<div class="tip"><strong>Interview whisper:</strong> Mention "center-out" — design data and logic once at the center, expose through any channel (web, mobile, API). Interviewers melt a little when you say it confidently.</div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter" id="ch2">
+<h2>Chapter 2: Meeting the Family — Class Hierarchy &amp; Inheritance</h2>
+<div class="flirt-box">Every great relationship has roots. In Pega, your class hierarchy is the family tree — and darling, you need to know who's related to whom before you introduce your rules to the world.</div>
+
+<h3>Class Types</h3>
+<ul>
+<li><strong>Abstract class</strong> — cannot create instances; exists for inheritance only (e.g., <code>Work-</code>)</li>
+<li><strong>Concrete class</strong> — instances can be created (e.g., <code>Work-Cover-</code>, <code>Data-</code>)</li>
+<li><strong>Pattern inheritance</strong> — inherits from parent in hierarchy (<code>@baseclass</code> → <code>Work-</code> → <code>Work-Cover-</code>)</li>
+<li><strong>Directed inheritance</strong> — explicitly inherits from another class via <code>pyPatternInheritance</code> / directed parent</li>
+</ul>
+
+<h3>Class Categories</h3>
+<table>
+<tr><th>Prefix</th><th>Usage</th></tr>
+<tr><td>Work-</td><td>Case instances, assignments, work objects</td></tr>
+<tr><td>Data-</td><td>Data objects, lookup tables, system data</td></tr>
+<tr><td>Rule-</td><td>All rule instances</td></tr>
+<tr><td>Assign-</td><td>Assignment instances</td></tr>
+<tr><td>History-</td><td>Audit/history records</td></tr>
+<tr><td>Index-</td><td>Search index objects</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between Pattern and Directed inheritance?</div>
+<div class="answer"><strong>Pattern inheritance</strong> follows the class namespace hierarchy automatically. <strong>Directed inheritance</strong> lets a class inherit from a class outside its namespace tree — useful for reusing rules across applications without duplicating.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a class group?</div>
+<div class="answer">A <strong>class group</strong> (work pool) groups related case types under one database table. All case types in a class group share the same <code>pc_work</code> (or custom) table. Defined in the application rule.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between <code>Work-Cover-</code> and a regular work class?</div>
+<div class="answer"><code>Work-Cover-</code> is the abstract parent for all work classes. Concrete case types extend it (e.g., <code>Work-Cover-LoanApp</code>). It provides standard work object properties: <code>pyStatusWork</code>, <code>pxCreateDateTime</code>, etc.</div>
+</div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter" id="ch3">
+<h2>Chapter 3: The Art of Choosing — Rule Resolution</h2>
+<div class="flirt-box">Rule Resolution is Pega's way of finding THE ONE rule out of thousands. It's picky, methodical, and deeply romantic — just like you deserve in an interview panel.</div>
+
+<h3>Rule Resolution Algorithm (10 Steps)</h3>
+<ol>
+<li>Start with <strong>class</strong> of the calling rule</li>
+<li>Find rules matching <strong>rule type + name</strong></li>
+<li>Filter by <strong>ruleset + version</strong> (application stack)</li>
+<li>Discard <strong>not available</strong> rules</li>
+<li>Discard <strong>blocked</strong> rules</li>
+<li>Rank by <strong>class</strong> (nearest class wins)</li>
+<li>Rank by <strong>ruleset version</strong></li>
+<li>Consider <strong>circumstance</strong> (dated or templated)</li>
+<li>Consider <strong>ruleset version availability</strong></li>
+<li>Return the <strong>single winning rule</strong> (or warn if duplicates)</li>
+</ol>
+
+<h3>Key Concepts</h3>
+<ul>
+<li><strong>Ruleset</strong> — versioned container of related rules (e.g., <code>MyApp:01-01-01</code>)</li>
+<li><strong>Application stack</strong> — ordered list of ruleset versions the application uses</li>
+<li><strong>Circumstance</strong> — time-based or property-based rule variant</li>
+<li><strong>Rule availability</strong> — Available, Not Available, Blocked, Final, Withdrawn</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: What happens when two rules have the same specificity?</div>
+<div class="answer">Pega throws a <strong>duplicate rule warning</strong> during resolution. The rule with the higher ruleset version or more specific circumstance wins, but duplicates should be resolved — they indicate design problems.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a circumstance template?</div>
+<div class="answer">A circumstance template defines a <strong>property-based condition</strong> for rule variants (e.g., <code>.pyCountry = "US"</code>). Multiple rules share the template; the template property value determines which variant applies.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Can you explain caching in rule resolution?</div>
+<div class="answer">Pega caches resolved rules in the <strong>rules cache</strong> (FUA — Full Rule Assembly). First resolution is expensive; subsequent calls use cache. Cache invalidates on rule save, ruleset version change, or cache flush.</div>
+</div>
+
+<div class="warning"><strong>Guardrail:</strong> Never copy-paste rules across classes. Use inheritance. Interviewers love hearing you say "I'd extend, not duplicate."</div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter" id="ch4">
+<h2>Chapter 4: Love at First Case — Case Management</h2>
+<div class="flirt-box">A case is a story — beginning, middle, resolution. Your job is to make every case feel seen. Interviewers want to know you can architect stories, not just click buttons.</div>
+
+<h3>Case Type Components</h3>
+<ul>
+<li><strong>Case Type</strong> — blueprint for a business process (e.g., Loan Application)</li>
+<li><strong>Case ID</strong> — unique identifier (configured via Case ID rule)</li>
+<li><strong>Stages</strong> — high-level lifecycle phases</li>
+<li><strong>Processes</strong> — flows within stages</li>
+<li><strong>Data model</strong> — properties captured during the case</li>
+<li><strong>Views / UI</strong> — user interaction screens</li>
+</ul>
+
+<h3>Case Statuses</h3>
+<table>
+<tr><th>Status</th><th>Meaning</th></tr>
+<tr><td>New</td><td>Just created, not yet started</td></tr>
+<tr><td>Open</td><td>Active, in progress</td></tr>
+<tr><td>Pending-...</td><td>Waiting (external event, approval, etc.)</td></tr>
+<tr><td>Resolved-Completed</td><td>Successfully finished</td></tr>
+<tr><td>Resolved-Cancelled</td><td>Cancelled/withdrawn</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between a case and a work object?</div>
+<div class="answer">In modern Pega they're synonymous. Historically "work object" referred to the <code>Work-</code> class instance. A <strong>case</strong> is the business-friendly term for a unit of work tracked through a lifecycle.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a child case / subcase?</div>
+<div class="answer">A <strong>child case</strong> is a separate case type instantiated from a parent case. It has its own lifecycle but can be linked. Use <strong>Case Type rule → Processes → Add case</strong> or <code>pxCreateCase</code> API.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain case-wide actions vs stage-specific actions.</div>
+<div class="answer"><strong>Case-wide actions</strong> are available in every stage (e.g., "Transfer"). <strong>Stage-specific actions</strong> appear only in their configured stage. Both are Flow Actions presented to users.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is the Wait shape in a flow?</div>
+<div class="answer">The <strong>Wait</strong> shape pauses flow execution until an event occurs: timer expiry, case dependency resolution, or external signal. The assignment status becomes <code>Pending-...</code>.</div>
+</div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter" id="ch5">
+<h2>Chapter 5: Stages of Us — Processes, Flows &amp; Assignments</h2>
+<div class="flirt-box">Every relationship has stages. Pega cases do too. Know when to advance, when to loop back, and when to route work to someone who can handle it — skills you clearly already have.</div>
+
+<h3>Flow Shapes You Must Know</h3>
+<table>
+<tr><th>Shape</th><th>Purpose</th></tr>
+<tr><td>Assignment</td><td>Creates work item for user/system</td></tr>
+<tr><td>Decision</td><td>Branches based on When rule or expression</td></tr>
+<tr><td>Subprocess</td><td>Calls another flow</td></tr>
+<tr><td>Utility</td><td>Runs automation without assignment</td></tr>
+<tr><td>Wait</td><td>Pauses for event/timer</td></tr>
+<tr><td>Split-Join</td><td>Parallel processing branches</td></tr>
+<tr><td>Split-ForEach</td><td>Iterates over page list</td></tr>
+</table>
+
+<h3>Assignment Types</h3>
+<ul>
+<li><strong>Worklist</strong> — shared pool; any qualified user can pull</li>
+<li><strong>Workbasket</strong> — team queue</li>
+<li><strong>Work queue</strong> — routed to specific operator or team</li>
+<li><strong>Custom router</strong> — activity or decision-based routing</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between Flow Action and Flow?</div>
+<div class="answer"><strong>Flow</strong> — backend process automation (shapes, connectors). <strong>Flow Action</strong> — user-facing action button (e.g., "Approve", "Submit") that may call a flow or update assignment. Flow Actions have sections for UI.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a local flow action vs connector flow action?</div>
+<div class="answer"><strong>Local</strong> — runs in context of current assignment without leaving harness. <strong>Connector</strong> — navigates to a different assignment/flow, typically changes screen.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain pyDefault flow.</div>
+<div class="answer"><code>pyDefault</code> is the primary flow executed when a case enters a stage/process. Every process has one default flow that orchestrates the steps.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How does approval routing work?</div>
+<div class="answer">Use <strong>Approval shape</strong> or configure cascading approvals via <strong>WorkBasket</strong>/<strong>WorkQueue</strong>. Smart shapes can use reporting or decision rules. For complex chains, use <strong>pxApproval</strong> or custom routing activity.</div>
+</div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter" id="ch6">
+<h2>Chapter 6: What's on Your Mind — Clipboard &amp; Data Model</h2>
+<div class="flirt-box">The clipboard is where Pega keeps its thoughts about your case. Get intimate with it — interviewers always ask what's stored where.</div>
+
+<h3>Clipboard Pages</h3>
+<ul>
+<li><strong>Primary page</strong> — implicit page context for rules (usually <code>pyWorkPage</code>)</li>
+<li><strong>Top-level pages</strong> — <code>pxRequestor</code>, <code>pxThread</code>, <code>OperatorID</code></li>
+<li><strong>Parameter page</strong> — <code>param</code> for passing arguments</li>
+<li><strong>Step page</strong> — defined on flow shapes for scoped data</li>
+</ul>
+
+<h3>Property Types</h3>
+<table>
+<tr><th>Type</th><th>Description</th><th>Example</th></tr>
+<tr><td>Text</td><td>Single string</td><td><code>.FirstName</code></td></tr>
+<tr><td>Integer / Decimal</td><td>Numbers</td><td><code>.Age</code></td></tr>
+<tr><td>DateTime</td><td>Timestamp</td><td><code>.SubmittedDate</code></td></tr>
+<tr><td>Page</td><td>Embedded object</td><td><code>.Customer</code></td></tr>
+<tr><td>Page List</td><td>Ordered collection</td><td><code>.OrderItems()</code></td></tr>
+<tr><td>Page Group</td><td>Keyed collection</td><td><code>.Documents()</code></td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between Page List and Page Group?</div>
+<div class="answer"><strong>Page List</strong> — ordered, indexed by integer (<code>(1)</code>, <code>(2)</code>). <strong>Page Group</strong> — unordered, indexed by string key (<code>("home")</code>). Use Page List for sequences, Page Group for named lookups.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What are embedded pages vs linked pages?</div>
+<div class="answer"><strong>Embedded</strong> — stored inside parent page (serialized with parent). <strong>Linked</strong> — reference to separate clipboard page via <code>pxLinkedRefTo</code>. Linked pages save memory but need management.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain pyWorkPage, pxThread, pxRequestor.</div>
+<div class="answer"><code>pyWorkPage</code> — current case data. <code>pxThread</code> — holds open assignments and case references for the session. <code>pxRequestor</code> — operator/session context (user info, roles, access group).</div>
+</div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter" id="ch7">
+<h2>Chapter 7: Data Pages — Your Perfect Plus-One</h2>
+<div class="flirt-box">Data Pages don't ghost you. They show up when you need them, cache responsibly, and never make you fetch the same data twice unless you ask. Relationship goals.</div>
+
+<h3>Data Page Types</h3>
+<ul>
+<li><strong>Read-only</strong> — lookup/reference data (most common)</li>
+<li><strong>Editable</strong> — supports save plans for write-back</li>
+<li><strong>List</strong> — returns multiple results (page list structure)</li>
+<li><strong>Singleton</strong> — single object</li>
+</ul>
+
+<h3>Load Modes</h3>
+<table>
+<tr><th>Mode</th><th>Behavior</th></tr>
+<tr><td>stale-while-revalidate (SWR)</td><td>Return cached, refresh in background</td></tr>
+<tr><td>reload-once</td><td>Load once per requestor session</td></tr>
+<tr><td>reload-if older than</td><td>Refresh after specified time</td></tr>
+<tr><td>access-group</td><td>Shared across users in access group</td></tr>
+<tr><td>requestor</td><td>Per-user cache</td></tr>
+<tr><td>node</td><td>Shared across cluster node</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between Report Definition and Data Page?</div>
+<div class="answer"><strong>Report Definition</strong> — SQL-based query against DB, good for reporting/analytics. <strong>Data Page</strong> — abstraction layer with sources (Report Def, Activity, Connector, Lookup), supports caching, parameters, and responsive loading in UI.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you parameterize a Data Page?</div>
+<div class="answer">Define <strong>parameters</strong> on the Data Page rule. Pass values via <code>D_[Pagename][param1:value1]</code> syntax or from UI/data transform. Parameters affect cache key.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a savable Data Page?</div>
+<div class="answer">An <strong>editable Data Page</strong> with a <strong>Save Plan</strong> (Database/Activity/Flow) that persists changes back to source. Used in Constellation for inline editing of data types.</div>
+</div>
+
+<div class="tip"><strong>Modern answer:</strong> Prefer Data Pages over activities for data retrieval. Say it with confidence — it's a guardrail and interviewers nod.</div>
+</div>
+
+<!-- CHAPTER 8 -->
+<div class="chapter" id="ch8">
+<h2>Chapter 8: Data Transforms — Dressing Data to Impress</h2>
+<div class="flirt-box">Data Transforms are the stylist of the Pega world — they take raw data and make it interview-ready. No drama, no loops (well, minimal), just clean mapping.</div>
+
+<h3>Common Actions</h3>
+<ul>
+<li><strong>Set</strong> — assign value to property</li>
+<li><strong>Update Page</strong> — apply transform to embedded page</li>
+<li><strong>Append to</strong> — add to page list</li>
+<li><strong>Remove</strong> — delete page/list entry</li>
+<li><strong>When</strong> — conditional step execution</li>
+<li><strong>Otherwise</strong> — else branch</li>
+<li><strong>For Each Page In</strong> — iterate page list</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: Data Transform vs Activity — when to use which?</div>
+<div class="answer"><strong>Data Transform</strong> — property mapping, simple logic, no loops over large datasets, preferred for maintainability. <strong>Activity</strong> — complex iteration, calling multiple rules, integration orchestration, legacy code. Always prefer DT when possible.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you call a Data Transform from another?</div>
+<div class="answer">Use <strong>Update Page</strong> action or <strong>Apply Data Transform</strong> action, referencing the target transform name. Can pass pages as context.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Auto-populate?</div>
+<div class="answer"><strong>Auto-populate</strong> on a property automatically runs a Data Transform or Activity when the property is referenced, keeping derived data fresh.</div>
+</div>
+</div>
+
+<!-- CHAPTER 9 -->
+<div class="chapter" id="ch9">
+<h2>Chapter 9: Activities — The Ex You Still Respect</h2>
+<div class="flirt-box">Activities are the old flame of Pega — you don't chase them anymore, but you respect the history. Know them. Don't lead with them.</div>
+
+<h3>Activity Steps (Key Methods)</h3>
+<table>
+<tr><th>Method</th><th>Purpose</th></tr>
+<tr><td>Property-Set</td><td>Set property value</td></tr>
+<tr><td>Call</td><td>Invoke another activity</td></tr>
+<tr><td>Apply-DataTransform</td><td>Run data transform</td></tr>
+<tr><td>Obj-Open / Obj-Save</td><td>DB read/write</td></tr>
+<tr><td>Page-New / Page-Remove</td><td>Clipboard page management</td></tr>
+<tr><td>Connect-REST</td><td>Invoke REST connector</td></tr>
+<tr><td>Queue-For-Agent</td><td>Defer processing to agent</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: Why are activities being phased out?</div>
+<div class="answer">Activities are <strong>procedural</strong>, hard to maintain, bypass guardrails, and allow infinite loops. Pega pushes <strong>Data Transforms</strong>, <strong>Automations</strong>, and <strong>Flows</strong> as declarative alternatives. Activities still needed for legacy and edge cases.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Activity Security?</div>
+<div class="answer">Activities can be restricted via <strong>Activity Allow List</strong> (allow list for called activities) and <strong>Privilege</strong> on the activity rule. Restricted activities cannot be called from UI or unapproved contexts.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain Call vs Branch in activities.</div>
+<div class="answer"><strong>Call</strong> — invokes sub-activity; returns after completion. <strong>Branch</strong> — conditional jump to labeled step within same activity.</div>
+</div>
+</div>
+
+<!-- CHAPTER 10 -->
+<div class="chapter" id="ch10">
+<h2>Chapter 10: Decision Rules — When to Say Yes or No</h2>
+<div class="flirt-box">Decision rules are your boundary-setters. They know exactly when to commit and when to walk away. Be that clear in your interview answers.</div>
+
+<h3>Decision Rule Types</h3>
+<table>
+<tr><th>Rule</th><th>Use Case</th></tr>
+<tr><td>When</td><td>Single true/false condition</td></tr>
+<tr><td>Decision Table</td><td>Multiple conditions → multiple outcomes (grid)</td></tr>
+<tr><td>Decision Tree</td><td>Hierarchical if-else branching</td></tr>
+<tr><td>MapValue</td><td>One input → one output lookup</td></tr>
+<tr><td>Nested If</td><td>Nested conditional (legacy)</td></tr>
+<tr><td>Scorecard</td><td>Weighted scoring model</td></tr>
+<tr><td>Decision Strategy</td><td>AI-driven multi-channel decisioning (NBAM)</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: Decision Table vs Decision Tree?</div>
+<div class="answer"><strong>Table</strong> — best for combinatorial logic (multiple AND/OR conditions in grid). <strong>Tree</strong> — best for sequential/hierarchical decisions. Tables are easier to maintain for business users.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a Scorecard?</div>
+<div class="answer">A <strong>Scorecard</strong> assigns weighted scores to conditions. Total score maps to a result (e.g., credit risk rating). Used in strategies and flow decisions.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you invoke a When rule?</div>
+<div class="answer">In flows (Decision shape), Data Transforms (When action), Activities (<code>Property-Set</code> with @{when:RuleName}), Declare Expressions, and Validation rules.</div>
+</div>
+</div>
+
+<!-- CHAPTER 11 -->
+<div class="chapter" id="ch11">
+<h2>Chapter 11: Declare Rules — Commitment Without Clinginess</h2>
+<div class="flirt-box">Declare rules compute values automatically — no need to nag. They refresh when dependencies change. That's emotional maturity, and Pega has it.</div>
+
+<h3>Declare Rule Types</h3>
+<ul>
+<li><strong>Declare Expression</strong> — computed property value (e.g., <code>.FullName = .FirstName + " " + .LastName</code>)</li>
+<li><strong>Declare Constraint</strong> — validation enforced on property change</li>
+<li><strong>Declare OnChange</strong> — triggers activity/DT when property changes</li>
+<li><strong>Declare Trigger</strong> — fires on save of data class instance</li>
+<li><strong>Declare Index</strong> — maintains searchable index</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: How do Declare Expressions work?</div>
+<div class="answer">They define <strong>target properties</strong> computed from <strong>source properties</strong>. Pega tracks dependencies and recalculates automatically when sources change — forward chaining.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Declare OnChange vs Trigger?</div>
+<div class="answer"><strong>OnChange</strong> — reacts to property value change on clipboard (any class). <strong>Trigger</strong> — fires on <strong>commit/save</strong> of persistent object (Data- class instances).</div>
+</div>
+</div>
+
+<!-- CHAPTER 12 -->
+<div class="chapter" id="ch12">
+<h2>Chapter 12: UI Seduction — Sections, Harnesses &amp; Constellation</h2>
+<div class="flirt-box">Your UI should make users stay. Constellation is the glow-up. Know both traditional and modern — you're a catch either way.</div>
+
+<h3>Traditional UI Stack</h3>
+<ul>
+<li><strong>Section</strong> — reusable UI fragment (fields, layouts)</li>
+<li><strong>Harness</strong> — container composing sections (Perform, Review, Confirm)</li>
+<li><strong>Flow Action</strong> — links harness to process action</li>
+<li><strong>Portal</strong> — application shell (Case Worker, Case Manager)</li>
+<li><strong>Skin</strong> — look and feel (cosmetic)</li>
+</ul>
+
+<h3>Constellation / Cosmos</h3>
+<ul>
+<li><strong>View</strong> — JSON-driven UI (replaces Section in Constellation)</li>
+<li><strong>Full Page</strong> — complete screen</li>
+<li><strong>Widget</strong> — reusable UI component</li>
+<li><strong>Theme</strong> — design tokens, styling</li>
+<li>Uses <strong>React</strong> rendering engine, channel-agnostic</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: Section vs Harness?</div>
+<div class="answer"><strong>Section</strong> — building block with fields/layouts. <strong>Harness</strong> — assembles sections into a complete screen for a specific purpose (new harness, perform harness, etc.).</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Constellation and why did Pega introduce it?</div>
+<div class="answer"><strong>Constellation</strong> is Pega's <strong>model-driven UI architecture</strong> using Cosmos React. Benefits: responsive design, omnichannel (web/mobile), faster development via views, no heavy harness customization, better performance.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is dynamic layout vs column layout?</div>
+<div class="answer"><strong>Dynamic layout</strong> — flex-based, responsive, modern (preferred). <strong>Column/Freeform</strong> — legacy table-based positioning. Use dynamic layouts for new development.</div>
+</div>
+</div>
+
+<!-- CHAPTER 13 -->
+<div class="chapter" id="ch13">
+<h2>Chapter 13: SLAs — Never Keep Anyone Waiting</h2>
+<div class="flirt-box">SLAs are Pega's way of saying "I value your time." Know Goals, Deadlines, and Passed Deadlines like you'd know someone's love language.</div>
+
+<h3>SLA Components</h3>
+<table>
+<tr><th>Interval</th><th>What Happens</th></tr>
+<tr><td>Goal</td><td>Target completion time; optional reminder</td></tr>
+<tr><td>Deadline</td><td>Must complete by; escalation actions fire</td></tr>
+<tr><td>Passed Deadline</td><td>Overdue actions (escalate, notify, reassign)</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: Assignment SLA vs Case SLA?</div>
+<div class="answer"><strong>Assignment SLA</strong> — tracks individual task timeliness. <strong>Case SLA</strong> (Stage SLA) — tracks overall case/stage duration. Both use the SLA rule with different configurations.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How does the SLA agent work?</div>
+<div class="answer">The <strong>SLA agent</strong> (<code>Pega-ProCom:ServiceLevelEvents</code>) runs periodically, checks <code>pc_assign_worklist</code>/<code>workqueue</code> for breached intervals, and executes escalation actions (notify, route, update priority).</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Urgency in Pega?</div>
+<div class="answer"><strong>Urgency</strong> is a numeric value (default 10-100) that increases as SLA deadlines approach. Higher urgency = higher priority in worklists. Formula: <code>Initial Urgency + Time-based increase</code>.</div>
+</div>
+</div>
+
+<!-- CHAPTER 14 -->
+<div class="chapter" id="ch14">
+<h2>Chapter 14: Integration — Long-Distance Relationships</h2>
+<div class="flirt-box">Integrations need trust, clear contracts, and graceful error handling. Just like... well, you get it. Let's make you dangerous in Connect-REST.</div>
+
+<h3>Integration Types</h3>
+<table>
+<tr><th>Rule</th><th>Direction</th></tr>
+<tr><td>Connect-REST</td><td>Outbound REST call</td></tr>
+<tr><td>Service-REST</td><td>Inbound REST endpoint</td></tr>
+<tr><td>Connect-SOAP</td><td>Outbound SOAP</td></tr>
+<tr><td>Service-SOAP</td><td>Inbound SOAP</td></tr>
+<tr><td>Connect-SQL</td><td>Direct DB query</td></tr>
+<tr><td>Connect-Kafka</td><td>Event streaming</td></tr>
+<tr><td>Connect-MQ / JMS</td><td>Message queue</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: How do you handle REST integration errors?</div>
+<div class="answer">Configure <strong>Error Handling</strong> on Connect rule: Map HTTP status codes to error handlers. Use <strong>Integration Error pages</strong>, retry logic, and log via <strong>Log-Integration</strong>. In Data Pages, define <strong>Error handling</strong> fallback pages.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a Service Package?</div>
+<div class="answer">A <strong>Service Package</strong> groups service rules (REST/SOAP) under one access URL path. It defines authentication, pooling, and stateless/stateful processing.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain authentication methods for REST services.</div>
+<div class="answer">Basic Auth, OAuth 2.0, JWT, Custom (via Authentication Service rule), API Key. For outbound: use <strong>Authentication Profile</strong> or <strong>OAuth 2.0 Provider</strong> rule.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a Data Type in Pega?</div>
+<div class="answer">A <strong>Data Type</strong> is a Pega-managed data class (<code>Data-</code>) with CRUD UI, REST API auto-generation, and storage. It's the modern way to manage reference/master data.</div>
+</div>
+</div>
+
+<!-- CHAPTER 15 -->
+<div class="chapter" id="ch15">
+<h2>Chapter 15: Security — Trust, But Verify</h2>
+<div class="flirt-box">Security isn't jealous — it's protective. Access Groups, Roles, Privileges. Know the chain like you know your own worth.</div>
+
+<h3>Security Model</h3>
+<p><strong>Operator ID</strong> → <strong>Access Group</strong> → <strong>Application</strong> + <strong>Roles</strong> → <strong>Privileges</strong> → <strong>Access When</strong> rules</p>
+
+<div class="qa-block">
+<div class="question">Q: What is the difference between Role and Privilege?</div>
+<div class="answer"><strong>Role</strong> — collection of privileges representing a job function (e.g., "Loan Officer"). <strong>Privilege</strong> — atomic permission to perform an action (e.g., <code>LoanApp:Create</code>). Roles bundle privileges.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Attribute-Based Access Control (ABAC)?</div>
+<div class="answer"><strong>ABAC</strong> controls access based on property values (e.g., only see cases in your region). Implemented via <strong>Access When</strong> rules on cases, properties, and flow actions.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you restrict a property from certain users?</div>
+<div class="answer">Configure <strong>Property security</strong> on the property rule: Read/Write restrictions using Access When conditions or privilege requirements.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is an Access Group?</div>
+<div class="answer">Defines which <strong>Application</strong>, <strong>Portal</strong>, <strong>Roles</strong>, and <strong>Work Pools</strong> an operator can access. One operator can have multiple access groups (switch via portal).</div>
+</div>
+</div>
+
+<!-- CHAPTER 16 -->
+<div class="chapter" id="ch16">
+<h2>Chapter 16: Agents &amp; Job Schedulers — Midnight Texts</h2>
+<div class="flirt-box">Agents work while you sleep. Job Schedulers are the reliable ones who always show up on time. Know the difference — interviewers ask.</div>
+
+<h3>Agent vs Job Scheduler</h3>
+<table>
+<tr><th>Feature</th><th>Agent</th><th>Job Scheduler</th></tr>
+<tr><td>Execution</td><td>Node-based, periodic polling</td><td>Cluster-aware, scheduled task</td></tr>
+<tr><td>Use case</td><td>High-volume background processing</td><td>Scheduled maintenance, reports</td></tr>
+<tr><td>Modern preference</td><td>Legacy for new work</td><td>Preferred for new development</td></tr>
+<tr><td>Configuration</td><td>Agent Schedule rule</td><td>Job Scheduler rule</td></tr>
+</table>
+
+<div class="qa-block">
+<div class="question">Q: What is Queue For Agent?</div>
+<div class="answer"><strong>Queue For Agent</strong> defers work to an agent queue (<code>System-Queue-</code> class). The agent processes items asynchronously — useful for bulk processing without blocking user interaction.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you troubleshoot a stopped agent?</div>
+<div class="answer">Check <strong>Admin Studio → System → Agents</strong>. Verify agent is enabled, node has agent schedule, queue isn't full, and no exceptions in logs. Use <strong>Tracer</strong> on agent activity.</div>
+</div>
+</div>
+
+<!-- CHAPTER 17 -->
+<div class="chapter" id="ch17">
+<h2>Chapter 17: Reporting — Showing Off Your Numbers</h2>
+<div class="flirt-box">Good reports don't lie, and good developers don't over-query. Aggregate functions are your friend. So am I — keep reading.</div>
+
+<h3>Report Definition Key Concepts</h3>
+<ul>
+<li><strong>Report Definition</strong> — SQL-based query rule (formerly Report Definition / List View)</li>
+<li><strong>Summarize</strong> — GROUP BY with aggregate functions</li>
+<li><strong>Drill-down</strong> — navigate from summary to detail</li>
+<li><strong>Association</strong> — join between classes via <code>Association</code> rule</li>
+<li><strong>Function</strong> — SQL functions (COUNT, SUM, AVG)</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: Report Definition vs Summary View?</div>
+<div class="answer"><strong>Summary View</strong> is the legacy rule; <strong>Report Definition</strong> is the modern replacement. Same purpose — querying DB. Always say Report Definition in interviews.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How do you optimize a slow report?</div>
+<div class="answer">Add <strong>indexes</strong> (Declare Index), limit columns, use <strong>optimized filtering</strong>, avoid functions on indexed columns in WHERE, use <strong>materialized views</strong> for complex reports, check EXPLAIN plan via DB trace.</div>
+</div>
+</div>
+
+<!-- CHAPTER 18 -->
+<div class="chapter" id="ch18">
+<h2>Chapter 18: Testing — Proof You're the Real Deal</h2>
+<div class="flirt-box">Unit tests are love letters to your future self. Write them. Automated tests don't flirt — they just never leave you.</div>
+
+<h3>Testing Types in Pega</h3>
+<ul>
+<li><strong>Unit Test Case</strong> — tests individual rules (DT, Activity, Decision)</li>
+<li><strong>Scenario Test</strong> — end-to-end case lifecycle test (Selenium-based)</li>
+<li><strong>Test Application</strong> — isolated app stack for testing</li>
+<li><strong>PegaUnits</strong> — automated unit test framework in Dev Studio</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: How do you create a Unit Test for a Data Transform?</div>
+<div class="answer">Right-click Data Transform → <strong>Create Test Case</strong>. Define input page, expected output page, and assertions. Run via <strong>Test Cases</strong> landing page or CI pipeline.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a Test Ruleset?</div>
+<div class="answer">A dedicated <strong>ruleset</strong> containing only test cases. Keeps test artifacts separate from production rules. Should be in a <strong>Test Application</strong> or test branch.</div>
+</div>
+</div>
+
+<!-- CHAPTER 19 -->
+<div class="chapter" id="ch19">
+<h2>Chapter 19: Performance &amp; Guardrails — Staying in Shape</h2>
+<div class="flirt-box">Performance issues are the ultimate mood killer. PAL and Tracer are your personal trainers. Let's get you toned for that interview.</div>
+
+<h3>Performance Tools</h3>
+<ul>
+<li><strong>PAL (Performance Analyzer)</strong> — counts DB operations, clipboard size, elapsed time</li>
+<li><strong>Tracer</strong> — real-time rule execution trace</li>
+<li><strong>Clipboard Inspector</strong> — view page/property data</li>
+<li><strong>DB Trace</strong> — SQL query analysis</li>
+<li><strong>Rule Inspector</strong> — view resolved rules</li>
+</ul>
+
+<h3>Top Guardrails</h3>
+<ol>
+<li>No more than 5 flow actions per assignment</li>
+<li>Avoid activities — use Data Transforms</li>
+<li>Limit properties per class (soft limit ~200)</li>
+<li>Use Data Pages instead of repeated DB calls</li>
+<li>Avoid looping activities over large datasets</li>
+<li>Use Declare Index instead of RDB methods</li>
+<li>Don't store large blobs in clipboard</li>
+<li>Prefer Report Definitions over RDB-List</li>
+</ol>
+
+<div class="qa-block">
+<div class="question">Q: How do you debug a slow case?</div>
+<div class="answer">1) Run <strong>PAL</strong> before/after action. 2) Use <strong>Tracer</strong> with filters. 3) Check <strong>DB Trace</strong> for N+1 queries. 4) Review Data Page load modes. 5) Check for looping activities. 6) Review clipboard size.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is an N+1 query problem in Pega?</div>
+<div class="answer">When a loop calls <strong>Obj-Open</strong> or Data Page load for each row in a list — N items = N+1 DB calls. Fix: use batch Data Page, Report Definition with join, or paginated loading.</div>
+</div>
+</div>
+
+<!-- CHAPTER 20 -->
+<div class="chapter" id="ch20">
+<h2>Chapter 20: DevOps &amp; Deployment — Moving In Together</h2>
+<div class="flirt-box">Deployments are commitment. RAPs, branches, pipelines — know how to move code without breaking hearts or production.</div>
+
+<h3>Deployment Concepts</h3>
+<ul>
+<li><strong>RAP (Ruleset Archive Package)</strong> — exportable package of rules</li>
+<li><strong>Product rule</strong> — defines what to include in RAP</li>
+<li><strong>Branch</strong> — isolated development stream</li>
+<li><strong>Merge</strong> — combine branch changes to target ruleset</li>
+<li><strong>Deployment Manager</strong> — CI/CD orchestration for Pega</li>
+<li><strong>Pipeline</strong> — automated promote through environments (Dev → QA → Prod)</li>
+</ul>
+
+<div class="qa-block">
+<div class="question">Q: What is a Product rule?</div>
+<div class="answer">Defines the <strong>application contents</strong> for export: included rulesets, applications, instances. Used to create RAPs for deployment.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Branch vs Ruleset versioning?</div>
+<div class="answer"><strong>Ruleset version</strong> — sequential versioning (01-01-01 → 01-01-02). <strong>Branch</strong> — parallel development stream for features; merged when ready. Branches prevent conflicts in team development.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Skim in deployment?</div>
+<div class="answer"><strong>Skim</strong> removes rules no longer referenced by the application, reducing RAP size. Run before packaging for production.</div>
+</div>
+</div>
+
+<!-- CHAPTER 21 -->
+<div class="chapter" id="ch21">
+<h2>Chapter 21: Advanced Flirtations — SSA-Level Topics</h2>
+<div class="flirt-box">You've earned the deep conversation chapter. SSA interviews go here. Lean in — this is where offers get serious.</div>
+
+<h3>Additional SSA Topics</h3>
+
+<div class="qa-block">
+<div class="question">Q: Explain Differential Circumstance (DCR).</div>
+<div class="answer"><strong>Direct Capture of Objectives (DCO)</strong> sessions gather requirements. <strong>DCR</strong> allows runtime rule customization by business users without changing base rules — overlays circumstance-specific behavior.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Pega GenAI / AI capabilities?</div>
+<div class="answer">Pega integrates <strong>GenAI</strong> for case summarization, email generation, decisioning assistance, and Socrates chat in App Studio. <strong>Pega Prediction Studio</strong> for ML models. <strong>NLP</strong> for text analytics.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain Kafka integration in Pega.</div>
+<div class="answer"><strong>Connect-Kafka</strong> and <strong>Service-Kafka</strong> rules enable event-driven architecture. Use <strong>Stream Data Set</strong> and <strong>Data Flow</strong> for real-time processing pipelines.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is a Data Flow?</div>
+<div class="answer"><strong>Data Flow</strong> — visual streaming pipeline for processing large datasets. Supports batch and real-time (Kafka). Uses <strong>Data Set</strong> rules as sources/sinks.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: Explain Pega Robotic Automation (RPA).</div>
+<div class="answer"><strong>RPA</strong> automates legacy desktop applications via robots. <strong>Pega Robot Studio</strong> creates automations. Integrated into cases via <strong>Robotic Automation</strong> shape in flows.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is Customer Decision Hub (CDH)?</div>
+<div class="answer"><strong>CDH</strong> is Pega's next-best-action marketing engine. Uses <strong>Decision Strategies</strong>, <strong>Adaptive Analytics</strong>, and <strong>Action</strong> rules to personalize customer interactions across channels.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: How does Pega handle multi-tenancy?</div>
+<div class="answer"><strong>Pega Cloud</strong> uses logical isolation per tenant. On-prem: separate instances or <strong>Division</strong> rules for organizational isolation. <strong>Access Groups</strong> and <strong>Ruleset access</strong> control data separation.</div>
+</div>
+
+<div class="qa-block">
+<div class="question">Q: What is the Repository (Git integration)?</div>
+<div class="answer">Pega <strong>Repository</strong> integrates with Git (GitHub, GitLab, Bitbucket) for version control of rules. Supports branch-based development, merge conflict resolution, and DevOps pipelines.</div>
+</div>
+
+<h3>Email &amp; Correspondence</h3>
+<ul>
+<li><strong>Correspondence rule</strong> — email/template definition</li>
+<li><strong>Send Email Smart Shape</strong> — sends from flow</li>
+<li><strong>Email Account</strong> — SMTP configuration</li>
+<li><strong>Inbound email</strong> — creates/updates cases via Service Email</li>
+</ul>
+
+<h3>Document Generation</h3>
+<ul>
+<li><strong>HTML Template / PDF</strong> — document templates</li>
+<li><strong>Correspondence</strong> with attachments</li>
+<li><strong>pyAttachAsPDF</strong> — attach generated docs to case</li>
+</ul>
+</div>
+
+<!-- CHAPTER 22 -->
+<div class="chapter" id="ch22">
+<h2>Chapter 22: Rapid-Fire 100 Questions — Don't Blink</h2>
+<div class="flirt-box">100 questions. Zero mercy. You ready? Because I believe in you more than Pega believes in its own guardrails.</div>
+
+<div class="two-col cheat">
+<ol>
+<li>What is BPM? → Business Process Management</li>
+<li>What class prefix for cases? → Work-</li>
+<li>Default flow name? → pyDefault</li>
+<li>What is pxCreateOperator? → Case creator</li>
+<li>What is pyStatusWork? → Case status property</li>
+<li>What is pxUrgencyAssign? → Assignment urgency</li>
+<li>What is pxUpdateDateTime? → Last update timestamp</li>
+<li>What is Rule-? → Base class for all rules</li>
+<li>What is a ruleset version format? → MM-mm-nn</li>
+<li>What is FUA? → Full Rule Assembly (cache)</li>
+<li>What is a work pool? → Class group for case types</li>
+<li>What is pxCommitDateTime? → Last commit to DB</li>
+<li>What is an assignment? → Unit of work for operator</li>
+<li>What is pyFlowName? → Current flow name on assignment</li>
+<li>What is pyStepPage? → Page context for flow step</li>
+<li>What is pxCurrentStageLabel? → Current stage display name</li>
+<li>What is Resolve? → Complete assignment action</li>
+<li>What is Spin-off? → Create child case from parent</li>
+<li>What is Cover object? → Parent of multiple related cases</li>
+<li>What is pxCoverInsKey? → Cover case instance key</li>
+<li>What is DCR? → Direct Capture Requirements</li>
+<li>What is Pega Express? → Rapid delivery methodology</li>
+<li>What is Guardrails compliance score? → App health %</li>
+<li>What is PAL threshold warning? → DB ops &gt; 50</li>
+<li>What is clipboard size warning? → &gt; 2MB typical</li>
+<li>What is pxRDBIO? → Total DB operations counter</li>
+<li>What is Auto-Complete? → Dropdown with search</li>
+<li>What is pxDropdown? → Static/dynamic dropdown</li>
+<li>What is a Field Value? → Key-value for dropdowns</li>
+<li>What is pyTemplateInputBox? → Standard text input</li>
+<li>What is pxDateTime? → DateTime control</li>
+<li>What is Validate rule? → Input validation</li>
+<li>What is Edit Validate? → Client+server validation</li>
+<li>What is Constraint rule? → Declare Constraint</li>
+<li>What is pySetFieldDefaults? → Default property values</li>
+<li>What is pxRouteTo? → Routing destination</li>
+<li>What is WorkBasket? → Team queue name</li>
+<li>What is pxOrgUnit? → Organizational unit</li>
+<li>What is pxDivision? → Division property</li>
+<li>What is pxApplication? → Current application name</li>
+<li>What is pxProcessName? → Current process name</li>
+<li>What is pxTaskName? → Current assignment task name</li>
+<li>What is pxIsDCSPA? → Is Dynamic Container SPA</li>
+<li>What is Constellation? → Modern React UI framework</li>
+<li>What is Cosmos? → Design system for Constellation</li>
+<li>What is DX API? → Digital Experience API</li>
+<li>What is pxAPI? → Pega REST API layer</li>
+<li>What is OAuth 2.0 in Pega? → Token-based auth</li>
+<li>What is a keystore? → Certificate/key storage</li>
+<li>What is pxINSName? → Instance name (key)</li>
+<li>What is pxObjClass? → Instance class name</li>
+<li>What is pxCreateDateTime? → Instance creation time</li>
+<li>What is Obj-Open-By-Handle? → Open by pzInsKey</li>
+<li>What is pzInsKey? → Internal instance key</li>
+<li>What is pxRefObjectKey? → Reference to another instance</li>
+<li>What is pxLinkedRefTo? → Linked page reference</li>
+<li>What is Code-Security? → Access control rules class</li>
+<li>What is Rule-Access-Role-Obj? → Role definition</li>
+<li>What is Rule-Access-When? → Access When rule</li>
+<li>What is pyAllowed? → Privilege check result</li>
+<li>What is pxThreadName? → Thread identifier</li>
+<li>What is pxSubscript? → Page list index</li>
+<li>What is pxResults? → Results page for list operations</li>
+<li>What is RDB-List? → Activity method for SQL list</li>
+<li>What is RDB-Open? → Activity method for SQL read</li>
+<li>What is Obj-Sort? → Sort page list</li>
+<li>What is Obj-Filter? → Filter page list</li>
+<li>What is Show-Stream? → Display HTML section</li>
+<li>What is Show-Page? → Display harness</li>
+<li>What is Property-Map? → Map properties between pages</li>
+<li>What is Page-Copy? → Copy clipboard page</li>
+<li>What is Page-Merge? → Merge two pages</li>
+<li>What is Log-Message? → Write to log</li>
+<li>What is Rule-Declare-Expressions? → Computed properties</li>
+<li>What is Forward Chaining? → Auto-recalc on dependency change</li>
+<li>What is pxDPParameters? → Data Page parameters page</li>
+<li>What is D_pyUser? → Sample user Data Page</li>
+<li>What is System-Queue-ServiceLevel? → SLA queue class</li>
+<li>What is Pega-ProCom? → Process Commander ruleset</li>
+<li>What is Pega-Engine? → Core engine ruleset</li>
+<li>What is @baseclass? → Root of class hierarchy</li>
+<li>What is Withdrawn rule? → Deprecated, not resolved</li>
+<li>What is Final rule? → Cannot be overridden</li>
+<li>What is Blocked rule? → Excluded from resolution</li>
+<li>What is Available rule? → Active and resolvable</li>
+<li>What is Not Available? → Saved but not active</li>
+<li>What is pyRuleName? → Name of a rule instance</li>
+<li>What is pyClassName? → Applies-to class</li>
+<li>What is pyRuleSet? → Ruleset name</li>
+<li>What is pyRuleSetVersion? → Ruleset version</li>
+<li>What is pxInsHandle? → Unique instance handle</li>
+<li>What is pxCurrentStage? → Current stage name</li>
+<li>What is pyLabel? → Display label of rule</li>
+<li>What is pxSubStatus? → Sub-status of case</li>
+<li>What is pxSaveDateTime? → Last save timestamp</li>
+<li>What is pxUpdateOperator? → Last operator who updated</li>
+<li>What is pxCreateOpName? → Creator display name</li>
+<li>What is pxLastUpdateBy? → Last updater name</li>
+<li>What is a landing page? → Portal navigation page</li>
+<li>What is pyCaseLinks? → Related cases page list</li>
+<li>What is pxAssociated? → Association rule reference</li>
+<li>What is pyWorkParties? → Stakeholders on case</li>
+<li>What is pxPartyRole? → Role of stakeholder</li>
+<li>What is pyCaseTypePurpose? → Business purpose text</li>
+</ol>
+</div>
+</div>
+
+<!-- CHAPTER 23 -->
+<div class="chapter" id="ch23">
+<h2>Chapter 23: Final Confession — Day-Before Checklist</h2>
+<div class="flirt-box">You made it. Every chapter. Every concept. Every flirtatious metaphor. I'm genuinely proud of you — and I don't say that to everyone. Now go collect that offer letter like the masterpiece you are.</div>
+
+<h3>Night Before Interview — Checklist</h3>
+<ul>
+<li>☑ Explain Rule Resolution 10 steps from memory</li>
+<li>☑ Draw Case Type lifecycle (Stages → Processes → Flows → Assignments)</li>
+<li>☑ Compare Data Transform vs Activity vs Data Page — when to use each</li>
+<li>☑ Explain Constellation vs Traditional UI</li>
+<li>☑ Walk through REST integration setup (Connect-REST + Data Page)</li>
+<li>☑ Describe SLA Goal/Deadline/Passed Deadline with escalation</li>
+<li>☑ Security chain: Operator → Access Group → Role → Privilege</li>
+<li>☑ Deployment flow: Branch → Merge → RAP → Pipeline → Prod</li>
+<li>☑ Name 5 guardrails and how you follow them</li>
+<li>☑ Prepare 2 real project stories (challenge → solution → result)</li>
+</ul>
+
+<h3>STAR Story Template (Use for Behavioral Questions)</h3>
+<div class="qa-block">
+<div class="question">Situation</div>
+<div class="answer">"In my [project], we had [business problem]..."</div>
+</div>
+<div class="qa-block">
+<div class="question">Task</div>
+<div class="answer">"I was responsible for [your role]..."</div>
+</div>
+<div class="qa-block">
+<div class="question">Action</div>
+<div class="answer">"I designed [Case Type/Data Page/Integration] using [specific Pega rules]..."</div>
+</div>
+<div class="qa-block">
+<div class="question">Result</div>
+<div class="answer">"We reduced processing time by X%, achieved guardrails compliance of Y%..."</div>
+</div>
+
+<h3>Sample Project Story Prompts</h3>
+<ol>
+<li>Describe a complex integration you built</li>
+<li>How did you handle performance issues?</li>
+<li>Tell me about a production defect you fixed</li>
+<li>How do you mentor junior developers on guardrails?</li>
+<li>Describe migrating from traditional UI to Constellation</li>
+</ol>
+
+<div class="teaser">
+💌 You read the whole thing. That discipline? That curiosity? That's exactly why you're going to walk into that interview and make Rule Resolution look easy.<br><br>
+Now go be brilliant. The panel won't know what hit them.<br>
+— With admiration, your Pega Romance Guide
+</div>
+
+<div class="footer-note">
+Pega Interview Romance Guide · Complete Edition · CSA/SSA Level · 3+ Years Experience<br>
+Topics: Architecture · Classes · Rule Resolution · Case Management · Flows · Clipboard · Data Pages · Data Transforms · Activities · Decisions · Declares · UI/Constellation · SLAs · Integration · Security · Agents · Reporting · Testing · Performance · DevOps · SSA Advanced · 100 Rapid-Fire Q&amp;A
+</div>
+</div>
+
+</body>
+</html>
+"""
+
+
+def main():
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    HTML_PATH.write_text(HTML_CONTENT, encoding="utf-8")
+    print(f"HTML written to {HTML_PATH}")
+
+    try:
+        from weasyprint import HTML
+        HTML(filename=str(HTML_PATH)).write_pdf(str(PDF_PATH))
+    except ImportError:
+        chrome_cmd = [
+            "google-chrome",
+            "--headless=new",
+            "--disable-gpu",
+            "--no-sandbox",
+            "--print-to-pdf=" + str(PDF_PATH),
+            "--print-to-pdf-no-header",
+            f"file://{HTML_PATH.resolve()}",
+        ]
+        result = subprocess.run(chrome_cmd, capture_output=True, text=True, timeout=300)
+        if result.returncode != 0:
+            print("Chrome stderr:", result.stderr)
+            raise SystemExit(result.returncode)
+
+    size_kb = PDF_PATH.stat().st_size / 1024
+    print(f"PDF generated: {PDF_PATH} ({size_kb:.1f} KB)")
+
+
+if __name__ == "__main__":
+    main()
