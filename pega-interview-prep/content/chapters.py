@@ -36,7 +36,7 @@ def build_cover_and_toc() -> str:
   <div style="font-size:36pt">💕</div>
   <h1>Pega Interview<br>Romance Guide</h1>
   <p class="subtitle">Ultimate One-Stop Bible — Every Topic, Every Subtopic, Nothing Missed</p>
-  <p><strong>27 Chapters · 330+ Subtopics · 28 Diagrams · 250+ Q&amp;A · Romantic Full Explanations</strong></p>
+  <p><strong>27 Chapters · 473 Subtopics · 28 Diagrams · 250+ Q&amp;A · Romantic Full Explanations</strong></p>
   <p class="dedication">
     Hey gorgeous — this is the <em>complete</em> guide, not a teaser.<br><br>
     Every chapter explains <strong>every subtopic</strong> in simple romantic words: what it is, how it works, interview tip, flirty example, diagram, cheat sheet, and Q&amp;A.<br><br>

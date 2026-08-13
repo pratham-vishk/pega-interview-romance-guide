@@ -35,19 +35,20 @@ STYLES = """
   }
   .diagram-box {
     text-align: center;
-    margin: 12px 0;
-    padding: 8px;
+    margin: 14px 0;
+    padding: 10px;
     background: #fafafa;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     page-break-inside: avoid;
-    page-break-before: auto;
+    page-break-before: always;
+    break-inside: avoid;
   }
   .diagram-box img {
     display: block;
     margin: 0 auto;
     max-width: 100%;
-    max-height: 175mm;
+    max-height: 220mm;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -81,12 +82,20 @@ STYLES = """
   .toc { page-break-after: always; }
   .chapter { page-break-before: always; }
   .subtopic-block {
-    margin: 10px 0 14px 0;
-    padding: 0 0 8px 0;
+    margin: 12px 0 16px 0;
+    padding: 0 0 10px 0;
     border-bottom: 1px dotted #f8bbd0;
-    page-break-inside: avoid;
   }
-  .subtopic-block p { margin: 4px 0; }
+  .subtopic-block p { margin: 5px 0; }
+  .flirt-sub {
+    background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 100%);
+    border-left: 3px solid #e91e63;
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    color: #6a1b4a;
+  }
   code, .mono { font-family: 'DejaVu Sans Mono', monospace; background: #f5f5f5; padding: 1px 4px; border-radius: 3px; font-size: 8.5pt; }
   .cheat { font-size: 8pt; columns: 2; column-gap: 16px; }
   .teaser { text-align: center; font-style: italic; color: #c2185b; margin: 16px 0; padding: 10px; border: 1px dashed #f48fb1; border-radius: 8px; }

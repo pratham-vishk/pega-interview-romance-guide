@@ -1,10 +1,11 @@
-flowchart LR
-    A["Assignment Created\nUrgency = 10"] --> B["Goal Time\n(Reminder / Notify)"]
-    B --> C["Deadline Time\n(Escalate / Reassign)"]
-    C --> D["Passed Deadline\n(Critical Action)"]
-    D --> E["SLA Agent\nProcesses Events"]
+flowchart TD
+    C["Case Created"] --> G["Goal — First target"]
+    G --> D["Deadline — Must complete"]
+    D --> P["Passed Deadline — Escalation"]
+    P --> U["Urgency Increases"]
 
-    style A fill:#e3f2fd
-    style B fill:#fff9c4
-    style C fill:#ffe0b2
-    style D fill:#ffcdd2
+    style C fill:#e3f2fd
+    style G fill:#fff9c4
+    style D fill:#ffe0b2
+    style P fill:#ffcdd2
+    style U fill:#f8bbd0

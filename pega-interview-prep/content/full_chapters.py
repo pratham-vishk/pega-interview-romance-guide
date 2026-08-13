@@ -20,7 +20,7 @@ def render_chapter(num: int, ch: dict, d) -> str:
     ]
     for key, caption in ch.get("diagrams", []):
         body_parts.append(d(key, caption))
-    body_parts.append(render_subtopics(ch["subtopics"]))
+    body_parts.append(render_subtopics(ch["subtopics"], chapter_num=num))
     body_parts.append(cheat(ch["title"].split("—")[0].strip(), ch["cheat"]))
     for q, a in ch["qa"]:
         body_parts.append(qa(q, a))

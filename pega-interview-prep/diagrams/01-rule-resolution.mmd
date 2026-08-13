@@ -1,13 +1,13 @@
-flowchart LR
-    A["1. Class"] --> B["2. Name"]
-    B --> C["3. Ruleset"]
-    C --> D["4. Not Avail"]
-    D --> E["5. Blocked"]
-    E --> F["6. Specificity"]
-    F --> G["7. Version"]
+flowchart TD
+    A["1. Start: Class"] --> B["2. Rule Name"]
+    B --> C["3. Ruleset List"]
+    C --> D["4. Remove Not Available"]
+    D --> E["5. Remove Blocked"]
+    E --> F["6. Class Specificity"]
+    F --> G["7. Ruleset Version"]
     G --> H["8. Circumstance"]
-    H --> I["9. Available"]
-    I --> J["10. Cache FUA"]
+    H --> I["9. Rule Available"]
+    I --> J["10. Cache in FUA"]
 
     style A fill:#fce4ec
     style J fill:#e8f5e9
