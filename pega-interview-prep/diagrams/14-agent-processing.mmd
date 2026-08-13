@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant Flow as Flow / Activity
+    participant Queue as System-Queue
+    participant Agent as Pega Agent
+    participant Act as Agent Activity
+    participant DB as Database
+
+    Flow->>Queue: Queue-For-Agent (item)
+    Note over Agent: Runs on schedule per node
+    Agent->>Queue: Poll queue items
+    Queue-->>Agent: Next item
+    Agent->>Act: Execute activity
+    Act->>DB: Process (Obj-Save, etc.)
+    DB-->>Act: Confirm
+    Act-->>Agent: Complete
+    Agent->>Queue: Remove / mark done

@@ -1,0 +1,20 @@
+flowchart TD
+    subgraph Thread["pxThread Page"]
+        WP["pyWorkPage\n(Case Data)"]
+        AP["pyAssignmentPage\n(Current Task)"]
+    end
+    subgraph Requestor["pxRequestor Page"]
+        OID["OperatorID"]
+        AG["pxAccessGroup"]
+    end
+    subgraph WorkPage["pyWorkPage Embedded"]
+        P1[".Customer (Page)"]
+        P2[".OrderItems (Page List)"]
+        P3[".Documents (Page Group)"]
+    end
+    WP --> P1
+    WP --> P2
+    WP --> P3
+
+    style Thread fill:#fce4ec
+    style Requestor fill:#e3f2fd

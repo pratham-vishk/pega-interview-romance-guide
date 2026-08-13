@@ -1,0 +1,10 @@
+flowchart LR
+    DEV["Dev Studio\nFeature Branch"] --> MR["Merge / Resolve\nConflicts"]
+    MR --> RAP["Create RAP\n(Product Rule)"]
+    RAP --> QA["Import to QA\n(Deployment Manager)"]
+    QA --> TEST["Run Tests +\nGuardrails Scan"]
+    TEST --> STG["Stage Environment"]
+    STG --> PROD["Production\n(Pipeline Approval)"]
+
+    style DEV fill:#e8f5e9
+    style PROD fill:#fce4ec

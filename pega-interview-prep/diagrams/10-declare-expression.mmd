@@ -1,0 +1,10 @@
+flowchart TD
+    A["Source Property Changes\n(.FirstName)"] --> B["Pega Tracks Dependency"]
+    B --> C["Declare Expression\nRecalculates"]
+    C --> D["Target Property Updated\n(.FullName)"]
+    D --> E{"Other Declares\nDepend on .FullName?"}
+    E -->|Yes| C
+    E -->|No| F["Forward Chaining Complete"]
+
+    style A fill:#e3f2fd
+    style F fill:#e8f5e9

@@ -1,0 +1,10 @@
+flowchart TD
+    UT["Unit Test Case"] --> RULE["Test Single Rule\n(DT, Activity, Decision)"]
+    ST["Scenario Test"] --> E2E["End-to-End Case Flow\n(UI Automation)"]
+    TA["Test Application"] --> ISO["Isolated Ruleset Stack"]
+    RULE --> ASSERT["Assert Input vs Expected Output"]
+    E2E --> SEL["Selenium-based Steps"]
+    CI["CI Pipeline"] --> UT
+    CI --> ST
+
+    style E2E fill:#e8f5e9

@@ -1,0 +1,18 @@
+flowchart TD
+    A["Assignment Created"] --> B{"Routing Method?"}
+    B -->|Default| C["Current Operator"]
+    B -->|Worklist| D["Operator Worklist"]
+    B -->|Workbasket| E["Team Queue"]
+    B -->|Work Queue| F["Named Queue"]
+    B -->|Custom| G["Router Activity /\nDecision Rule"]
+    G --> H["Evaluate Conditions"]
+    H --> D
+    H --> E
+    H --> F
+    D --> I["Operator Claims / Opens"]
+    E --> I
+    F --> I
+    I --> J["Perform Assignment"]
+
+    style A fill:#fce4ec
+    style J fill:#e8f5e9

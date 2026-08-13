@@ -1,0 +1,16 @@
+flowchart LR
+    START((Start)) --> ASSIGN["Assignment\n(User Task)"]
+    ASSIGN --> DEC{"Decision\n(When Rule)"}
+    DEC -->|Yes| UTIL["Utility\n(Automation)"]
+    DEC -->|No| WAIT["Wait\n(Timer/Event)"]
+    UTIL --> SUB["Subprocess\n(Child Flow)"]
+    WAIT --> SUB
+    SUB --> SPLIT{"Split-Join\n(Parallel)"}
+    SPLIT --> SJ1["Branch A"]
+    SPLIT --> SJ2["Branch B"]
+    SJ1 --> JOIN["Join"]
+    SJ2 --> JOIN
+    JOIN --> END((End))
+
+    style START fill:#e8f5e9
+    style END fill:#fce4ec

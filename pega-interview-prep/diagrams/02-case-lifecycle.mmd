@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> New: Create Case
+    New --> Open: Start Process
+    Open --> Open: Assignment In Progress
+    Open --> Pending: Wait Shape / External Event
+    Pending --> Open: Event Received
+    Open --> Resolved_Completed: Resolve Case
+    Open --> Resolved_Cancelled: Cancel / Withdraw
+    Resolved_Completed --> [*]
+    Resolved_Cancelled --> [*]
+
+    note right of Open
+        Stages contain Processes
+        Processes contain Flows
+        Flows create Assignments
+    end note

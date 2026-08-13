@@ -1,0 +1,21 @@
+flowchart TD
+    A["Start Rule Resolution"] --> B["1. Identify Applies-To Class"]
+    B --> C["2. Match Rule Type + Name"]
+    C --> D["3. Filter by Ruleset Stack"]
+    D --> E["4. Remove Not Available"]
+    E --> F["5. Remove Blocked"]
+    F --> G["6. Rank by Class Specificity"]
+    G --> H["7. Rank by Ruleset Version"]
+    H --> I{"8. Circumstance?"}
+    I -->|Date-based| J["Match Date Range"]
+    I -->|Template| K["Match Property Value"]
+    I -->|None| L["9. Check Availability"]
+    J --> L
+    K --> L
+    L --> M{"Single Winner?"}
+    M -->|Yes| N["10. Return Rule + Cache in FUA"]
+    M -->|No| O["Duplicate Rule Warning"]
+    O --> N
+
+    style A fill:#fce4ec,stroke:#c2185b
+    style N fill:#e8f5e9,stroke:#43a047

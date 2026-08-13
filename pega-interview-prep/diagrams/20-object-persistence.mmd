@@ -1,0 +1,16 @@
+flowchart LR
+    subgraph Persist["Persistence Layer"]
+        WO["Work Object\n(pc_work)"]
+        DATA["Data Instance\n(Data- table)"]
+        ASSIGN["Assignment\n(pc_assign)"]
+    end
+    ACT["Activity Methods"] --> OBJ_OPEN["Obj-Open"]
+    ACT --> OBJ_SAVE["Obj-Save"]
+    ACT --> OBJ_DELETE["Obj-Delete"]
+    OBJ_OPEN --> WO
+    OBJ_OPEN --> DATA
+    OBJ_SAVE --> WO
+    OBJ_SAVE --> DATA
+    OBJ_DELETE --> WO
+
+    style WO fill:#fce4ec

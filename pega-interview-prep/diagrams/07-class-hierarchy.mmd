@@ -1,0 +1,13 @@
+flowchart TD
+  BC["@baseclass"] --> RULE["Rule-"]
+  BC --> WORK["Work-"]
+  BC --> DATA["Data-"]
+  WORK --> WC["Work-Cover-"]
+  WC --> APP1["Work-Cover-LoanApp"]
+  WC --> APP2["Work-Cover-Claims"]
+  DATA --> DT["Data-Loan-Customer"]
+  DATA --> REF["Data-Admin-CountryCodes"]
+  APP1 -.->|Directed Inheritance| REF
+
+  style BC fill:#f3e5f5
+  style WC fill:#fce4ec

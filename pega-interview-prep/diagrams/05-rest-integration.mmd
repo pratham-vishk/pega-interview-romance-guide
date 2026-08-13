@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant Case as Pega Case
+    participant DP as Data Page
+    participant Conn as Connect-REST
+    participant Auth as Auth Profile
+    participant API as External REST API
+
+    Case->>DP: Trigger integration
+    DP->>Conn: Invoke connector
+    Conn->>Auth: Get credentials / OAuth token
+    Auth-->>Conn: Token
+    Conn->>API: HTTP Request (GET/POST/PUT)
+    alt Success 200
+        API-->>Conn: JSON Response
+        Conn-->>DP: Map to clipboard page
+        DP-->>Case: Update case data
+    else Error 4xx/5xx
+        API-->>Conn: Error response
+        Conn-->>DP: Error handler page
+        DP-->>Case: Show error / retry
+    end

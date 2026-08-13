@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant User as User
+    participant Flow as Flow Action
+    participant DT as Data Transform
+    participant WO as pyWorkPage
+    participant Eng as Pega Engine
+    participant DB as Database
+
+    User->>Flow: Submit Assignment
+    Flow->>DT: Pre-processing DT
+    DT->>WO: Set / Map properties
+    Flow->>Eng: Commit Assignments
+    Eng->>WO: Validate (Validate rules)
+    Eng->>DB: Obj-Save (pc_work table)
+    DB-->>Eng: pxCommitDateTime updated
+    Eng->>Eng: Advance Flow
+    Eng-->>User: Next screen / confirmation

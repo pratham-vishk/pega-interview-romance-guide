@@ -1,0 +1,24 @@
+flowchart TD
+    subgraph Channels["Channels"]
+        WEB["Web"]
+        MOB["Mobile"]
+        API["DX API"]
+    end
+    subgraph Constellation["Constellation UI Layer"]
+        VIEW["Views"]
+        WIDGET["Widgets"]
+        THEME["Cosmos Theme"]
+    end
+    subgraph Core["Pega Core"]
+        CT["Case Types"]
+        DP["Data Pages"]
+        FLOW["Flows"]
+    end
+    WEB --> VIEW
+    MOB --> VIEW
+    API --> CT
+    VIEW --> CT
+    VIEW --> DP
+    CT --> FLOW
+
+    style Constellation fill:#fce4ec

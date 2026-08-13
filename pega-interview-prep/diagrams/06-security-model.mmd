@@ -1,0 +1,15 @@
+flowchart TD
+    OP["Operator ID\n(Login User)"] --> AG["Access Group"]
+    AG --> APP["Application"]
+    AG --> PORTAL["Portal"]
+    AG --> WP["Work Pool / Class Group"]
+    AG --> ROLES["Roles"]
+    ROLES --> PRIV["Privileges"]
+    PRIV --> ACT["Actions Allowed\n(Create, Open, Run)"]
+    ROLES --> AW["Access When Rules\n(ABAC)"]
+    AW --> CASE["Case-Level Security"]
+    AW --> PROP["Property Security"]
+    AW --> FA["Flow Action Visibility"]
+
+    style OP fill:#fce4ec
+    style ACT fill:#e8f5e9

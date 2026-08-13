@@ -1,0 +1,10 @@
+flowchart TD
+    INPUT["User Input / Property Change"] --> EV{"Edit Validate\n(Client)"}
+    EV -->|Fail| ERR1["Show Inline Error"]
+    EV -->|Pass| SERVER{"Validate Rule\n(Server on Commit)"}
+    SERVER -->|Fail| ERR2["Block Save + Message"]
+    SERVER -->|Pass| CONST{"Declare Constraint"}
+    CONST -->|Fail| ERR3["Constraint Violation"]
+    CONST -->|Pass| SAVE["Obj-Save to Database"]
+
+    style SAVE fill:#e8f5e9

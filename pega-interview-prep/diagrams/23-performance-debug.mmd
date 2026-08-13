@@ -1,0 +1,13 @@
+flowchart TD
+    START["Performance Issue Reported"] --> PAL["Run PAL\n(DB ops, clipboard size)"]
+    PAL --> TRACE["Tracer with Filters\n(rule type, time)"]
+    TRACE --> DBT["DB Trace\n(SQL analysis)"]
+    DBT --> N1{"N+1 Pattern?"}
+    N1 -->|Yes| FIX1["Batch Data Page /\nReport Def Join"]
+    N1 -->|No| CACHE{"Cache Issue?"}
+    CACHE -->|Yes| FIX2["Fix Data Page Load Mode"]
+    CACHE -->|No| ACT{"Looping Activity?"}
+    ACT -->|Yes| FIX3["Replace with DT / Data Flow"]
+    ACT -->|No| DONE["Optimize Indexes / Guardrails"]
+
+    style DONE fill:#e8f5e9

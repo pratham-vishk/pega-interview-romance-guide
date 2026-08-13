@@ -1,0 +1,15 @@
+flowchart TD
+    Q{"Need a Decision?"} -->|Single True/False| W["When Rule"]
+    Q -->|Grid of Conditions| DT["Decision Table"]
+    Q -->|Hierarchy| TREE["Decision Tree"]
+    Q -->|1 Input → 1 Output| MV["MapValue"]
+    Q -->|Weighted Score| SC["Scorecard"]
+    Q -->|NBA / Marketing| DS["Decision Strategy"]
+    W --> USE1["Flows, DT, Validation"]
+    DT --> USE2["Routing, Eligibility"]
+    TREE --> USE3["Complex Branching"]
+    MV --> USE4["Status Mapping"]
+    SC --> USE5["Credit / Risk Scoring"]
+    DS --> USE6["CDH / Next Best Action"]
+
+    style Q fill:#fce4ec

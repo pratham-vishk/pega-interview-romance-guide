@@ -1,0 +1,11 @@
+flowchart TD
+    APP["Application Rule"] --> RS1["Ruleset: MyApp 01-02-03"]
+    APP --> RS2["Ruleset: MyApp-Data 01-01-05"]
+    APP --> RS3["Ruleset: Pega-ProCom 08-24-01"]
+    APP --> RS4["Ruleset: Pega-Engine 08-24-01"]
+    RS1 --> R1["Case Type Rules"]
+    RS1 --> R2["Data Transforms"]
+    RS2 --> R3["Data Pages"]
+    RS3 --> R4["Platform Rules"]
+
+    style APP fill:#fce4ec

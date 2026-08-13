@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant UI as UI / Flow
+    participant DP as Data Page Rule
+    participant Cache as Rules Cache
+    participant Source as Source Rule
+    participant DB as Database / API
+
+    UI->>DP: Reference D_Customer[CustomerID:123]
+    DP->>Cache: Check cache (load mode + params)
+    alt Cache Hit
+        Cache-->>DP: Return cached page
+    else Cache Miss / Stale
+        DP->>Source: Invoke Source
+        alt Report Definition
+            Source->>DB: Execute SQL
+        else Connect-REST
+            Source->>DB: HTTP Request
+        else Lookup
+            Source->>DB: Direct lookup
+        end
+        DB-->>Source: Data
+        Source-->>DP: Populate page
+        DP->>Cache: Store per load mode
+    end
+    DP-->>UI: Return Data Page

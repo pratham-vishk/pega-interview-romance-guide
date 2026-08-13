@@ -1,0 +1,8 @@
+flowchart TD
+    REQ["Incoming Request"] --> FT{"Feature Toggle\nEnabled?"}
+    FT -->|Yes| NEW["New Constellation View"]
+    FT -->|No| OLD["Legacy Section/Harness"]
+    NEW --> RESP["Response"]
+    OLD --> RESP
+
+    style FT fill:#fce4ec
