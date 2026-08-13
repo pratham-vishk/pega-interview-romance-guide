@@ -1,0 +1,11 @@
+flowchart TD
+    A["User Opens Portal"] --> B["Access Group Checked"]
+    B --> C["Application + Roles Loaded"]
+    C --> D{"Privilege for Action?"}
+    D -->|Yes| E{"Access When Rule?"}
+    D -->|No| F["Access Denied"]
+    E -->|Pass| G["Show Case / Action"]
+    E -->|Fail| F
+
+    style G fill:#e8f5e9
+    style F fill:#ffcdd2

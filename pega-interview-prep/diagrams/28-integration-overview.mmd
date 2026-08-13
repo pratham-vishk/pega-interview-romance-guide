@@ -1,0 +1,11 @@
+flowchart TD
+    A["Need Integration?"] --> B{"Direction?"}
+    B -->|Outbound| C["Connect-REST / SOAP / SQL"]
+    B -->|Inbound| D["Service-REST / SOAP"]
+    C --> E["Authentication Profile"]
+    E --> F["Data Page or Activity calls Connector"]
+    F --> G["Map Response to Clipboard"]
+    D --> H["Service Package exposes URL"]
+    H --> I["External system calls Pega"]
+
+    style A fill:#fce4ec

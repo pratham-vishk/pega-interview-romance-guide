@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph Properties["Property Types"]
+        T["Text"]
+        N["Integer / Decimal"]
+        DT["DateTime"]
+        TF["TrueFalse"]
+        P["Page"]
+        PL["Page List"]
+        PG["Page Group"]
+    end
+    P --> PL
+    P --> PG
+
+    style Properties fill:#fce4ec

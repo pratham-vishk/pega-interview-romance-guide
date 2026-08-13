@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant User as User / Portal
+    participant Pega as Pega Engine
+    participant CT as Case Type
+    participant Flow as pyDefault Flow
+    participant DB as Database
+
+    User->>Pega: Create Case (Add Case)
+    Pega->>CT: Instantiate Work- instance
+    CT->>DB: Obj-Save (New case ID)
+    DB-->>CT: Case created (pzInsKey)
+    CT->>Flow: Start pyDefault flow
+    Flow->>Pega: Create first Assignment
+    Pega-->>User: Show Perform harness

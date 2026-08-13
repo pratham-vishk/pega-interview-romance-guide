@@ -1,0 +1,14 @@
+flowchart TD
+    START["Data Transform Starts"] --> SET["Set Property Values"]
+    SET --> WHEN{"When Condition?"}
+    WHEN -->|True| UPDATE["Update Page / Append to List"]
+    WHEN -->|False| OTHER["Otherwise Branch"]
+    UPDATE --> LOOP{"For Each Page In?"}
+    OTHER --> LOOP
+    LOOP -->|Yes| ITER["Process Each Row"]
+    LOOP -->|No| CALL["Apply Another DT"]
+    ITER --> CALL
+    CALL --> END["Exit Data Transform"]
+
+    style START fill:#fce4ec
+    style END fill:#e8f5e9

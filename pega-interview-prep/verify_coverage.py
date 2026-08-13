@@ -32,8 +32,9 @@ def main():
     print("All required topics verified ✅")
     # Count diagrams
     svg_count = text.count("<svg")
+    png_count = text.count("data:image/png;base64")
     qa_count = text.count('class="question"')
-    print(f"Diagrams embedded: {svg_count}")
+    print(f"Diagrams embedded: {png_count + svg_count} ({png_count} PNG)")
     print(f"Q&A blocks: {qa_count}")
     return 0
 

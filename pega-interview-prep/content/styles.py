@@ -84,5 +84,15 @@ STYLES = """
     color: #283593;
     page-break-inside: avoid;
   }
-  .easy-box strong { color: #1a237e; } text-align: center; font-size: 8.5pt; color: #888; margin-top: 24px; padding-top: 10px; border-top: 1px solid #eee; }
+  .easy-box strong { color: #1a237e; }
+  .flirty-example {
+    background: linear-gradient(135deg, #fff0f5 0%, #f8bbd0 100%);
+    border: 1px dashed #e91e63;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 10pt;
+    color: #880e4f;
+    page-break-inside: avoid;
+  } text-align: center; font-size: 8.5pt; color: #888; margin-top: 24px; padding-top: 10px; border-top: 1px solid #eee; }
 """
