@@ -35,12 +35,12 @@ def build_cover_and_toc() -> str:
 <div class="cover">
   <div style="font-size:36pt">💕</div>
   <h1>Pega Interview<br>Romance Guide</h1>
-  <p class="subtitle">The Complete One-Stop Interview Bible — Every Concept, Every Diagram, Every Answer</p>
-  <p><strong>3+ Years · CSA / SSA · 28 Diagrams · 150+ Q&amp;A · Full Explanations</strong></p>
+  <p class="subtitle">Ultimate One-Stop Bible — Every Topic, Every Subtopic, Nothing Missed</p>
+  <p><strong>27 Chapters · 330+ Subtopics · 28 Diagrams · 250+ Q&amp;A · Romantic Full Explanations</strong></p>
   <p class="dedication">
-    Hey gorgeous — this isn't a summary. This is the <em>full meal</em>.<br><br>
-    Every chapter has: simple explanation → flirty real example → labeled diagram → cheat sheet → interview Q&amp;A with answers.<br><br>
-    Start Chapter 1. Don't stop until the Master Cheat Sheet. Your offer letter is waiting at the end. 💋
+    Hey gorgeous — this is the <em>complete</em> guide, not a teaser.<br><br>
+    Every chapter explains <strong>every subtopic</strong> in simple romantic words: what it is, how it works, interview tip, flirty example, diagram, cheat sheet, and Q&amp;A.<br><br>
+    Diagrams fit the page. Labels show. Topics don't get skipped. Start Chapter 1 — finish Chapter 27 — collect your offer. 💋
   </p>
 </div>
 

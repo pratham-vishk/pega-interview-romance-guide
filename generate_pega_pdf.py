@@ -17,6 +17,25 @@ HTML_PATH = OUTPUT_DIR / "pega-interview-romance-guide.html"
 PDF_PATH = OUTPUT_DIR / "Pega_Interview_Romance_Guide.pdf"
 
 
+def resize_diagram_pngs(diagrams_dir: Path, max_height: int = 1600) -> None:
+    """Scale down tall PNG diagrams so they fit on one PDF page."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    for png in diagrams_dir.glob("*.png"):
+        try:
+            img = Image.open(png)
+            if img.height > max_height:
+                ratio = max_height / img.height
+                new_size = (max(1, int(img.width * ratio)), max_height)
+                img = img.resize(new_size, Image.Resampling.LANCZOS)
+                img.save(png, optimize=True)
+                print(f"  Resized {png.name} → {new_size[0]}x{new_size[1]}")
+        except Exception as e:
+            print(f"  Resize skip {png.name}: {e}")
+
+
 def render_mermaid_diagrams() -> dict[str, str]:
     """Render all .mmd files to PNG via mermaid-cli (labels render correctly in PDF)."""
     diagrams: dict[str, str] = {}
@@ -36,8 +55,8 @@ def render_mermaid_diagrams() -> dict[str, str]:
                 "-i", str(mmd),
                 "-o", str(png),
                 "-b", "white",
-                "-w", "1000",
-                "-s", "2",
+                "-w", "720",
+                "-s", "1.4",
             ]
             if config.exists():
                 cmd.extend(["-c", str(config)])
@@ -49,6 +68,7 @@ def render_mermaid_diagrams() -> dict[str, str]:
         if png.exists():
             diagrams[key] = str(png.resolve())
             print(f"  OK: {key}")
+    resize_diagram_pngs(DIAGRAMS_DIR)
     return diagrams
 
 
